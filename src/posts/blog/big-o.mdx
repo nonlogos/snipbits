@@ -1,0 +1,131 @@
+---
+title: 'The Big O Notation'
+date: '2021-10-26'
+path: 'big-o'
+description: 'Basic introduction to the big O'
+keywords: ['data structure', 'big o']
+---
+
+## What does better mean?
+
+- Faster
+- less memory intensive
+- more readable
+
+## Time Complexity
+
+Allows us to talk formally about the broad trends of how the runtime of an algorithm grows as the inputs grow.
+
+### The big O types
+
+- Constant O(1)
+- Linear O(n)
+- Quadratic O(n^2)
+- O(log n)
+- O(nlog n)
+
+## Space Complexity
+
+### The big O types
+
+#### Constant: primitives(number, booleans, undefined, null)
+
+#### Linear:
+
+- Strings O(n) where n is the string length
+- Object O(n) where n is number of keys
+- Array O(n) where n is array length
+
+### log
+
+Log is the inverse of exponentiation. The logarithm of a number roughly measures the number of times you can divide that number by 2 **before you get a value that is <= 1**
+
+- O(Log n) time complexity is great. It compares favorably to O(n) - between O(n) and O(1)
+- O(nlog n) time complexity is between O(n^2) and O(n)
+
+ex. log2(8) = 3 -> 2x2x2 = 8 so 2 cube = 8
+ex. log2(value) = exponent -> 2 exponent = value
+
+#### usage
+
+It's used in:
+
+- Certain searching algorithms **[Time Complexity]**
+- Efficient sorting algorithms involves logarithms
+- Recursion sometimes involves **[logarithmic space complexity]**
+
+## Big O Performance Analysis Practice [arrays and objects - built in methods]
+
+### 1. the big O of objects
+
+Objects are unordered, key/value pairs
+
+```javascript
+let instructor = {
+	firstName: 'kelly',
+	isInstructor: true,
+	favoriteNumbers: [1, 2, 3],
+};
+```
+
+#### When to use objects
+
+- when you don't need order
+- when you need fast access (constant time O(1)) **[retrieval / insertion / removal]**
+- searching if a piece of value exists in an object is linear O(n)
+
+#### Big O time complexity of object methods
+
+- Object.keys: O(n)
+- Object.values: O(n)
+- Object.entries: O(n)
+- Object.hasOwnProperty: O(1)
+
+### 2. the big O of arrays
+
+Arrays are ordered lists
+
+```javascript
+const arr1 = ['Jane', 'John', 'Joe'];
+```
+
+#### When to use arrays
+
+- when you need order
+- even when you need order sometimes singly/doubly linked lists have better performance
+- when you need fast retrieval / insertion (sort of) / removal (sort of)
+
+#### Big O time complexity of array
+
+- insertion -> it depends
+  - Push: constant O(1)
+  - Pop: constant O(1)
+  - Enqueue(unshift): linear O(n)
+  - Dequeue(shift): linear O(n)
+- removal -> it depends
+- searching -> O(n)
+- access/retrieval -> O(1) ex. array[8]
+
+#### Big O time complexity of array methods
+
+- Push: O(1)
+- Pop: constant O(1)
+- Enqueue(unshift): O(N)
+- Dequeue(shift): O(N)
+- Concat: O(N)
+- Slice: O(N)
+- Splice: O(N)
+- Sort: O(N \* logN)
+- forEach/map/filter/reduce..etc: O(N)
+
+```javascript
+// browser only
+let t1 = performance.now();
+// run function with large data(set)
+let t2 = performance.now();
+console.log(`Time elapsed: ${(t2 - t1) / 1000} seconds`);
+```
+
+```html
+<span>Hello</span>
+```
