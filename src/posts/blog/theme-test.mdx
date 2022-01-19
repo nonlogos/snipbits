@@ -1,0 +1,96 @@
+---
+title: 'Theme Test'
+date: '2022-01-15'
+path: '/theme-test'
+description: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+keywords: ['font', 'responsive', 'progressive web app']
+embeddedImagesLocal:
+  - ../../images/code.jpg
+embeddedImagesRemote:
+  - https://source.unsplash.com/g2E2NQ5SWSU
+---
+
+import { getImage, GatsbyImage } from 'gatsby-plugin-image';
+
+<Header date={props.frontmatter.date} title={props.frontmatter.title} />
+
+<GatsbyImage alt="working hard with coding challenges" image={getImage(props.remoteImages[0])} />
+
+<p>{props.frontmatter.description}</p>
+
+## h2: What about fonts? A comprehensive guide
+
+### h3: What about fonts? A comprehensive guide
+
+#### h4: What about fonts? A comprehensive guide
+
+##### h5: What about fonts? A comprehensive guide
+
+###### h6: What about fonts? A comprehensive guide
+
+One of the easiest ways to make fonts _responsive_ is to resize the fonts according to the viewport’s size or the browser’s window size. There are various **viewport units**, in relation to the axes of the browser window, provided by CSS that are very useful in making responsive web pages. Some viewport units are `vw`, `vh`, `vmin`, and `vmax`. We can get the information of these units from the [CSS units](https://www.w3schools.com/cssref/css_units.asp). We can use these viewport units instead of `em`, `px`, or `pt` to make the responsive fonts.
+
+How about some ~~strikethrough~~ text? Here's some inline code `const someStr = 'this is some string'`
+
+I need to highlight these <span class="highlight">very important words</span>. I love me some H<sub>2</sub>O and X<sup>2</sup> right now.
+
+Here's a sentence with a footnote. [^1]
+
+---
+
+## Blockquote
+
+> Fun Fact
+>
+> Functions are objects, but because they include a few unique additional features, we're going to refer to them separately to avoid confusion.
+
+## List
+
+### Unordered List
+
+- This is the first item
+- This is the second item
+- This is a sublist
+  - sublist first item
+  - sublist second item
+- This is the third item
+
+### Ordered List
+
+1. This is the first item
+2. This is the second item
+   1. This is first sub item
+   2. Ths is second sub item
+3. This is the third item
+
+### Check List
+
+- [x] This is the first item
+- [ ] This is the second item
+- [ ] This is the third item
+
+---
+
+## Code blocks
+
+```javascript
+let instructor = {
+	firstName: 'kelly',
+	isInstructor: true,
+	favoriteNumbers: [1, 2, 3],
+};
+```
+
+## Images
+
+<GatsbyImage alt="working hard with coding challenges" image={getImage(props.remoteImages[0])} />
+<GatsbyImage alt="lots of codes" image={getImage(props.localImages[0])} />
+
+## Table
+
+| Syntax    | Description |
+| --------- | ----------- |
+| Header    | Title       |
+| Paragraph | Text        |
+
+[^1]: This is the footnote.

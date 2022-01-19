@@ -3,30 +3,62 @@ import { graphql } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Link } from 'gatsby';
+import styled from 'styled-components';
+
+import Layout from '../components/DefaultLayout';
+import CodeBlock from '../components/Codeblock';
+import Seo from '../components/Seo';
+import Header from '../components/mdx/Header';
+
+const StyledTOC = styled.section`
+	& ul {
+		& li {
+			& a {
+				border-bottom: none;
+				color: var(--text-1);
+			}
+		}
+	}
+`;
+
+const themeMode = 'dark';
 
 export default function Post({ data: { mdx } }) {
-	const { frontmatter, tableOfContents, body } = mdx;
-	const shortcodes = { Link };
+	const { frontmatter, tableOfContents, body, excerpt, embeddedImagesRemote } = mdx;
+	const shortcodes = { Link, Header, code: CodeBlock, pre: (props) => <div {...props} /> };
 	return (
 		<>
-			<main>
-				<article>
-					<h1>{frontmatter.title}</h1>
-					<p>{frontmatter.description}</p>
-					<section>
-						<ul>
-							{tableOfContents.items.map((item) => (
-								<li key={item.url}>
-									<a href={item.url}>{item.title}</a>
-								</li>
-							))}
-						</ul>
-					</section>
-					<MDXProvider components={shortcodes}>
-						<MDXRenderer frontmatter={frontmatter}>{body}</MDXRenderer>
-					</MDXProvider>
-				</article>
-			</main>
+			<Layout themeMode={themeMode}>
+				<main>
+					<Seo
+						title={frontmatter.title}
+						description={frontmatter.description || excerpt}
+						keywords={frontmatter.keywords}
+					/>
+					<article>
+						{/* <StyledTOC>
+							<h4>Table of Contents</h4>
+							<ul>
+								{tableOfContents.items.map((item) => (
+									<li key={item.url}>
+										<a href={item.url}>{item.title}</a>
+									</li>
+								))}
+							</ul>
+						</StyledTOC> */}
+
+						<MDXProvider components={shortcodes}>
+							<MDXRenderer
+								frontmatter={frontmatter}
+								remoteImages={embeddedImagesRemote}
+								localImages={frontmatter.embeddedImagesLocal}
+							>
+								{body}
+							</MDXRenderer>
+						</MDXProvider>
+					</article>
+				</main>
+			</Layout>
 		</>
 	);
 }
@@ -43,6 +75,16 @@ export const postQuery = graphql`
 				date(locale: "")
 				description
 				keywords
+				embeddedImagesLocal {
+					childImageSharp {
+						gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+					}
+				}
+			}
+			embeddedImagesRemote {
+				childImageSharp {
+					gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+				}
 			}
 		}
 	}

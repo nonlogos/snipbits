@@ -34,22 +34,20 @@ module.exports = {
 				},
 			},
 		},
-		// {
-		// 	resolve: `gatsby-plugin-mdx`,
-		// 	options: {
-		// 		defaultLayouts: {
-		// 			// posts: require.resolve('./src/components/posts-layout.tsx'),
-		// 			default: require.resolve('./src/components/posts-layout.tsx'),
-		// 		},
-		// 		// rehypePlugins: [
-		// 		// 	// Generate heading ids for rehype-autolink-headings
-		// 		// 	require('rehype-slug'),
-		// 		// 	// To pass options, use a 2-element array with the
-		// 		// 	// configuration in an object in the second element
-		// 		// 	[require('rehype-autolink-headings'), { behavior: 'wrap' }],
-		// 		// ],
-		// 	},
-		// },
+		{
+			resolve: `gatsby-plugin-mdx`,
+			options: {
+				gatsbyRemarkPlugins: [
+					{
+						resolve: `gatsby-remark-images`,
+						options: {
+							maxWidth: 1200,
+							showCaptions: true,
+						},
+					},
+				],
+			},
+		},
 		{
 			resolve: 'gatsby-source-filesystem',
 			options: {

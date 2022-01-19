@@ -1,18 +1,5 @@
-// Use mdx frontmatter path if available for mdx file path
-// exports.onCreateNode = ({ node, getNode, actions }) => {
-// 	const { createNodeField, createFilePath } = actions;
-
-// 	if (node.internal.type === 'mdx') {
-// 		let slug = node.frontmatter.path || createFilePath(node, getNode);
-// 		createNodeField({
-// 			node,
-// 			name: 'slug',
-// 			value: slug,
-// 		});
-// 	}
-// };
-
 const path = require('path');
+const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
 	const { createPage } = actions;
@@ -51,4 +38,55 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 			},
 		});
 	});
+};
+
+exports.onCreateNode = async ({ node, createNodeId, actions: { createNodeField, createNode }, cache, store }) => {
+	if (node.internal.type === 'Mdx' && node.frontmatter && node.frontmatter.embeddedImagesRemote) {
+		let embeddedImagesRemote = await Promise.all(
+			node.frontmatter.embeddedImagesRemote.map((url) => {
+				try {
+					return createRemoteFileNode({
+						url,
+						parentNodeId: node.id,
+						createNode,
+						createNodeId,
+						cache,
+						store,
+					});
+				} catch (error) {
+					console.error(error);
+				}
+			})
+		);
+		if (embeddedImagesRemote) {
+			createNodeField({
+				node,
+				name: 'embeddedImagesRemote',
+				value: embeddedImagesRemote.map((image) => {
+					return image.id;
+				}),
+			});
+		}
+	}
+};
+
+// in order to correctly process mdx frontmatter images using childImageSharp, GraphQL needs to understand that the field is of type File. here uses createType to manually type a new field
+
+exports.createSchemaCustomization = ({ actions, schema }) => {
+	const { createTypes } = actions;
+	createTypes(`
+   type Mdx implements Node {
+     frontmatter: Frontmatter
+     embeddedImagesRemote: [File] @link(from: "fields.embeddedImagesRemote")  
+   }
+   type Frontmatter @dontInfer {
+     title: String!
+		 date: Date @dateformat(formatString: "MM-DD-YYYY")
+		 path: String!
+		 description: String
+		 keywords: [String]
+		 embeddedImagesLocal: [File] @fileByRelativePath
+     embeddedImagesRemote: [String]
+   }
+ `);
 };

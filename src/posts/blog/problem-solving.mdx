@@ -1,0 +1,84 @@
+---
+title: 'How to solve problems: data structure for interviews'
+date: '2021-10-27'
+path: '/problem-solving'
+description: 'Steps to take when solving data structure or interview problems'
+keywords: ['interview', 'data structure', 'coding challenge']
+---
+
+import same from '../../snippets/same/same';
+import countUniqueValues from '../../snippets/countUniqueValues/countUniqueValues';
+import maxSubarraySum from '../../snippets/maxSubarraySum/maxSubarraySum';
+
+[comment]: # 'using webpack raw loader to load file as string'
+
+## Problem solving approach
+
+### 1. Understand the problem
+
+- Can I restate the problem in my own words to make sure I understand the problem
+- What are the inputs, what should the inputs look like?
+- What are the outputs, what should the outputs look like?
+- Can the outputs be determined from the inputs? Do I have enough info to solve the problem. (You may not be able to answer this until you set about solving the problem but that's okay).
+- How should I label the important pieces of data that are parts of the problem?
+
+### 2. Explore concrete examples
+
+- starts with simple inputs
+- handles empty input and invalid inputs
+- test for complex inputs
+
+### 3. Break it down
+
+### 4. Solve/simplify
+
+### 5. Look back and refactor
+
+## Problem solving patterns
+
+- [Frequency Counter](#frequencyCounter)
+- [Multiple Pointers](#multiplePointers)
+- [Sliding Window](#slidingWindow)
+- [Divide and Conquer](#divideNConquer)
+- [Dynamic Programming]
+- [Greedy algorithms]
+- [Backtracking]
+- [more]
+
+### <a name="frequencyCounter">Frequency Counter</a>
+
+Uses objects or sets to collect values/Frequencies of values.  
+This can often avoid the need for nested loops or O(n^2) operations with arrays / strings.
+
+#### Same
+
+<pre>
+	<code className="language-javascript">{same.toString()}</code>
+</pre>
+
+### <a name="multiplePointers">Multiple Pointers</a>
+
+Creating pointers or values that correspond to an index or position and move towards the beginning, the middle or the end based on certain conditions. **Time complexity - O(n), Space complexity - O(n)**.
+
+#### Count Unique Values
+
+<pre>
+	<code className="language-javascript">{countUniqueValues.toString()}</code>
+</pre>
+
+### <a name="slidingWindow">Sliding Window</a>
+
+This pattern involves creating a **window** which can either be an array or number from one position to another.
+Depending on a certain condition, the window either increases or closes (and a new window is created).
+very useful for keeping track of a subset of data in an array/string etc.
+
+#### Max Subarray sum
+
+<pre>
+	<code className="language-javascript">{maxSubarraySum.toString()}</code>
+</pre>
+
+### <a name="divideNConquer">Divide and Conquer</a>
+
+This pattern involves dividing a dataset into smaller chunks and then repeating a process with the subsets of data.
+The pattern can tremendously decrease **Time Complexity**
