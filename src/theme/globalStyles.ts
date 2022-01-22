@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { colors, fonts, spacing, otherVariables } from '../theme/theme';
+import { globalTabScreenStyles } from './media';
 
 export interface IGlobalStyles {
 	mode?: string;
@@ -18,6 +19,20 @@ const GlobalStyles = createGlobalStyle`
     font-weight: ${({ mode }) =>
 			mode === 'light' ? `calc(var(--body-font-weight) + 100)` : `var(--body-font-weight)`};
     line-height: var(--body-line-height);
+
+    a:focus, button:focus, input:focus, textarea:focus, summary:focus {
+      outline: var(--outline-size) var(--outline-style) var(--outline-color);
+      outline-offset: var(--outline-offset, var(--outline-size));
+    }
+
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+      outline: var(--outline-size) var(--outline-style) var(--outline-color);
+      outline-offset: var(--outline-offset, var(--outline-size));
+    }
+
+    a:focus:not(:focus-visible), button:focus:not(:focus-visible), input:focus:not(:focus-visible), textarea:focus:not(:focus-visible), summary:focus:not(:focus-visible) {
+      outline: none;
+    }
 
     h1, h2, h3 {
       font-family: var(--header-font);
@@ -139,6 +154,13 @@ const GlobalStyles = createGlobalStyle`
       }
     }
 
+    hr {
+      display: block;
+      border-top: 1px solid;
+      opacity: 0.2;
+      padding-bottom: 2vh;
+    }
+
     code {
       background: var(--code-bkgd);
       color: ${({ mode }: IGlobalStyles) => (mode === 'light' ? `var(--surface-1)` : 'inherit')};
@@ -151,7 +173,7 @@ const GlobalStyles = createGlobalStyle`
       position: relative;
       width: 80%;
       /* border-left: 6px solid var(--text-2-light); */
-      margin: 0 auto;
+      margin: 6vh auto;
       /* padding-left: 1.3em;
       padding-bottom: 2px; */
       background: var(--surface-2);
@@ -242,35 +264,7 @@ const GlobalStyles = createGlobalStyle`
       }
     }
 
-    @media screen and (max-width: 600px) {
-      article {
-        & header {
-          padding-top: 12vh;
-          padding-bottom: 5vh;
-        }
-        & h2, h3 {
-          font-family: var(--body-font);
-          margin: 9vh auto 5vh;
-        }
-        & h3 {
-          letter-spacing: 0;
-        }
-        & h5 {
-          letter-spacing: 0.1ch;
-        }
-        & p {
-          letter-spacing: 0.05ch;
-        }
-  
-        & blockquote {
-          width: 100%;
-          & h3 {
-            font-family: var(--header-font);
-          }
-        }
-        
-      }
-    }
+    ${globalTabScreenStyles}
   }
 `;
 

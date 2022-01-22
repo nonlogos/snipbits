@@ -1,6 +1,7 @@
 const path = require('path');
 const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
+// Create new pages for all mdx files using the post-template template
 exports.createPages = async ({ graphql, actions, reporter }) => {
 	const { createPage } = actions;
 
@@ -41,36 +42,47 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 };
 
 exports.onCreateNode = async ({ node, createNodeId, actions: { createNodeField, createNode }, cache, store }) => {
-	if (node.internal.type === 'Mdx' && node.frontmatter && node.frontmatter.embeddedImagesRemote) {
-		let embeddedImagesRemote = await Promise.all(
-			node.frontmatter.embeddedImagesRemote.map((url) => {
-				try {
-					return createRemoteFileNode({
-						url,
-						parentNodeId: node.id,
-						createNode,
-						createNodeId,
-						cache,
-						store,
-					});
-				} catch (error) {
-					console.error(error);
-				}
-			})
-		);
-		if (embeddedImagesRemote) {
+	if (node.internal.type === 'Mdx') {
+		if (node.fileAbsolutePath) {
 			createNodeField({
 				node,
-				name: 'embeddedImagesRemote',
-				value: embeddedImagesRemote.map((image) => {
-					return image.id;
-				}),
+				name: 'contentType',
+				value: node.fileAbsolutePath.split('/src/posts/')[1].split('/')[0],
 			});
+		}
+
+		// Asynchornously download remote images and store with new node called embeddedImagesRemote
+		if (node.frontmatter && node.frontmatter.embeddedImagesRemote) {
+			let embeddedImagesRemote = await Promise.all(
+				node.frontmatter.embeddedImagesRemote.map((url) => {
+					try {
+						return createRemoteFileNode({
+							url,
+							parentNodeId: node.id,
+							createNode,
+							createNodeId,
+							cache,
+							store,
+						});
+					} catch (error) {
+						console.error(error);
+					}
+				})
+			);
+			if (embeddedImagesRemote) {
+				createNodeField({
+					node,
+					name: 'embeddedImagesRemote',
+					value: embeddedImagesRemote.map((image) => {
+						return image.id;
+					}),
+				});
+			}
 		}
 	}
 };
 
-// in order to correctly process mdx frontmatter images using childImageSharp, GraphQL needs to understand that the field is of type File. here uses createType to manually type a new field
+// in order to correctly process mdx frontmatter images using childImageSharp, GraphQL needs to understand that the field is of type File. here we use createType to manually type a new field
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
 	const { createTypes } = actions;
@@ -81,8 +93,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
    }
    type Frontmatter @dontInfer {
      title: String!
-		 date: Date @dateformat(formatString: "MM-DD-YYYY")
-		 path: String!
+		 date: Date @dateformat(formatString: "YYYY-MM-DD")
 		 description: String
 		 keywords: [String]
 		 embeddedImagesLocal: [File] @fileByRelativePath

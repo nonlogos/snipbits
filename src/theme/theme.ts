@@ -76,4 +76,7 @@ export const spacing = css`
 
 export const otherVariables = css`
 	--border-radius: 10px;
+	--outline-size: max(2px, 0.08em);
+	--outline-style: solid;
+	--outline-color: purple;
 `;

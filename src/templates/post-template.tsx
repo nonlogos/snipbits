@@ -5,7 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
-import Layout from '../components/DefaultLayout';
+import Layout from '../components/Default-layout';
 import CodeBlock from '../components/Codeblock';
 import Seo from '../components/Seo';
 import Header from '../components/mdx/Header';
@@ -21,22 +21,19 @@ const StyledTOC = styled.section`
 	}
 `;
 
-const themeMode = 'dark';
-
 export default function Post({ data: { mdx } }) {
 	const { frontmatter, tableOfContents, body, excerpt, embeddedImagesRemote } = mdx;
 	const shortcodes = { Link, Header, code: CodeBlock, pre: (props) => <div {...props} /> };
 	return (
 		<>
-			<Layout themeMode={themeMode}>
-				<main>
-					<Seo
-						title={frontmatter.title}
-						description={frontmatter.description || excerpt}
-						keywords={frontmatter.keywords}
-					/>
-					<article>
-						{/* <StyledTOC>
+			<main>
+				<Seo
+					title={frontmatter.title}
+					description={frontmatter.description || excerpt}
+					keywords={frontmatter.keywords}
+				/>
+				<article>
+					{/* <StyledTOC>
 							<h4>Table of Contents</h4>
 							<ul>
 								{tableOfContents.items.map((item) => (
@@ -46,19 +43,18 @@ export default function Post({ data: { mdx } }) {
 								))}
 							</ul>
 						</StyledTOC> */}
-
-						<MDXProvider components={shortcodes}>
-							<MDXRenderer
-								frontmatter={frontmatter}
-								remoteImages={embeddedImagesRemote}
-								localImages={frontmatter.embeddedImagesLocal}
-							>
-								{body}
-							</MDXRenderer>
-						</MDXProvider>
-					</article>
-				</main>
-			</Layout>
+					<Header date={frontmatter.date} title={frontmatter.title} />
+					<MDXProvider components={shortcodes}>
+						<MDXRenderer
+							frontmatter={frontmatter}
+							remoteImages={embeddedImagesRemote}
+							localImages={frontmatter.embeddedImagesLocal}
+						>
+							{body}
+						</MDXRenderer>
+					</MDXProvider>
+				</article>
+			</main>
 		</>
 	);
 }

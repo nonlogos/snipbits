@@ -9,6 +9,7 @@ const Pre = styled.pre`
 	padding: 0.5em;
 	overflow: scroll;
 	border-radius: var(--border-radius);
+	font-size: 0.7em;
 `;
 
 const Line = styled.div`

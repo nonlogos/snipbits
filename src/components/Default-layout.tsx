@@ -3,7 +3,8 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyles from '../theme/globalStyles';
 
-function DefaultLayout({ children, themeMode }) {
+function DefaultLayout({ children }) {
+	const themeMode = 'dark';
 	return (
 		<ThemeProvider theme={{ mode: themeMode }}>
 			<GlobalStyles mode={themeMode} />

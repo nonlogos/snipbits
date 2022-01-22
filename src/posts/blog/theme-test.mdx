@@ -1,7 +1,6 @@
 ---
 title: 'Theme Test'
 date: '2022-01-15'
-path: '/theme-test'
 description: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
 keywords: ['font', 'responsive', 'progressive web app']
 embeddedImagesLocal:
@@ -11,8 +10,6 @@ embeddedImagesRemote:
 ---
 
 import { getImage, GatsbyImage } from 'gatsby-plugin-image';
-
-<Header date={props.frontmatter.date} title={props.frontmatter.title} />
 
 <GatsbyImage alt="working hard with coding challenges" image={getImage(props.remoteImages[0])} />
 

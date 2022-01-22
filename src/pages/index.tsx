@@ -1,23 +1,127 @@
 import * as React from 'react';
+import { Link, graphql } from 'gatsby';
+import styled from 'styled-components';
 
-import Layout from '../components/DefaultLayout';
+import Card from '../components/card/Card';
+import { mediaSizes } from '../theme/media';
 
-const IndexPage = () => {
+const StyledCardsContainer = styled.section`
+	& ul {
+	}
+`;
+
+const StyledUl = styled.ul`
+	display: block;
+	@media screen and (min-width: ${mediaSizes.tab}px) {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		column-gap: 1em;
+		row-gap: 1em;
+		width: 90%;
+		margin: 0 auto;
+		align-items: stretch;
+
+		& article {
+			border-top: none;
+			/* border: 1px solid var(--text-2-light); */
+			padding: 1.2em;
+			font-size: clamp(1rem, 0.7em, 1.5rem);
+			line-height: 1.5;
+			height: 100%;
+			& h2 {
+				font-size: 2rem;
+			}
+		}
+	}
+
+	& li {
+		padding-left: 0;
+		&:before {
+			content: none;
+		}
+	}
+`;
+
+const IndexPage = ({ data }) => {
+	const { blogEntries, snippetsEntries } = data;
+	console.log('blog', blogEntries, snippetsEntries);
+	const linkPath = '/blog/theme-test';
+	const articles = [...blogEntries.edges, ...snippetsEntries.edges];
+	console.log('articles', articles);
 	return (
 		<>
-			<Layout themeMode="dark">
-				<main>
-					<title>Home Page</title>
-					<h1>Hello Home</h1>
-					<p>This is a paragraph</p>
-					<img
-						alt="Gatsby G Logo"
-						src="data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2a10 10 0 110 20 10 10 0 010-20zm0 2c-3.73 0-6.86 2.55-7.75 6L14 19.75c3.45-.89 6-4.02 6-7.75h-5.25v1.5h3.45a6.37 6.37 0 01-3.89 4.44L6.06 9.69C7 7.31 9.3 5.63 12 5.63c2.13 0 4 1.04 5.18 2.65l1.23-1.06A7.959 7.959 0 0012 4zm-8 8a8 8 0 008 8c.04 0 .09 0-8-8z' fill='%23639'/%3E%3C/svg%3E"
-					/>
-				</main>
-			</Layout>
+			<main>
+				<title>Home Page</title>
+				<h1>Hello Home</h1>
+				<StyledCardsContainer>
+					<StyledUl>
+						{articles.map((article) => (
+							<li key={article.node.frontmatter.title}>
+								<Card
+									mainlink={article.node.slug}
+									type={article.node.fields.contentType}
+									keywords={article.node.frontmatter.keywords}
+									date={article.node.frontmatter.date}
+								>
+									<h2>
+										<Link to={article.node.slug}>{article.node.frontmatter.title}</Link>
+									</h2>
+									<p>{article.node.frontmatter.description}</p>
+								</Card>
+							</li>
+						))}
+					</StyledUl>
+				</StyledCardsContainer>
+			</main>
 		</>
 	);
 };
+
+export const mdxQuery = graphql`
+	query postQuery {
+		blogEntries: allMdx(
+			sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
+			filter: { fields: { contentType: { eq: "blog" } } }
+		) {
+			edges {
+				node {
+					frontmatter {
+						date(locale: "", formatString: "MM-DD-YYYY")
+						title
+						keywords
+						description
+					}
+					fields {
+						contentType
+					}
+					excerpt
+					slug
+				}
+			}
+			totalCount
+		}
+		snippetsEntries: allMdx(
+			sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
+			filter: { fields: { contentType: { eq: "snippets" } } }
+		) {
+			edges {
+				node {
+					frontmatter {
+						date(locale: "", formatString: "MM-DD-YYYY")
+						title
+						keywords
+						description
+					}
+					fields {
+						contentType
+					}
+					excerpt
+					slug
+				}
+			}
+			totalCount
+		}
+	}
+`;
 
 export default IndexPage;
