@@ -7,6 +7,9 @@ export interface IGlobalStyles {
 }
 
 const GlobalStyles = createGlobalStyle`
+  html {
+    height: 100%;
+  }
   body {
     ${colors}
     ${fonts}
@@ -106,6 +109,10 @@ const GlobalStyles = createGlobalStyle`
       border-bottom: 1px solid var(--secondary-2);
     }
 
+    button {
+      font-weight: 500;
+    }
+
     em, strong {
       color: var(--secondary-1);
     }
@@ -119,7 +126,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     ul {
-      & li {
+      li {
         padding-left: 2em;
         position: relative;
         &:before {
@@ -137,7 +144,7 @@ const GlobalStyles = createGlobalStyle`
 
     ol {
       counter-reset: line;
-      & li {
+      li {
         counter-increment: line;
         padding-left: 2em;
         position: relative;
@@ -179,7 +186,7 @@ const GlobalStyles = createGlobalStyle`
       background: var(--surface-2);
       padding: 2rem;
       border-radius: var(--border-radius);
-      & h3 {
+      h3 {
         font-variation-settings: 'WONK' 1, 'SOFT' 100, 'opsz' 10, 'wght' 700;
         letter-spacing: 0.1ch;
       }
@@ -205,19 +212,11 @@ const GlobalStyles = createGlobalStyle`
       }
     }
 
-    .highlight {
-      font-weight: calc(var(--body-font-weight) + 100);
-      color: var(--surface-1);
-      background: var(--primary);
-      padding: 0 0.2em;
-      margin-right: 0.1em
-    }
-
     article {
       width: 70%;
       margin: 0 auto;
 
-      & header {
+      header {
         padding-top: clamp(var(--x4-spacing), 23vh, var(--40-spacing));
         padding-bottom: clamp(var(--x3-spacing), 15vh, var(--30-spacing));
         display: flex;
@@ -225,7 +224,7 @@ const GlobalStyles = createGlobalStyle`
         text-align: center;
         flex-direction: column;
 
-        & .blog-date {
+        .blog-date {
           color: var(--text-2);
           border-left: 3px solid var(--text-2-light);
           padding-top: 3px;
@@ -239,9 +238,28 @@ const GlobalStyles = createGlobalStyle`
         }
       }
 
-      & .gatsby-image-wrapper {
+      .gatsby-image-wrapper {
         margin-bottom: 5vh;
       }
+    }
+
+    .highlight {
+      font-weight: calc(var(--body-font-weight) + 100);
+      color: var(--surface-1);
+      background: var(--primary);
+      padding: 0 0.2em;
+      margin-right: 0.1em
+    }
+
+    .visually-hidden:not(:focus):not(:active) {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
     }
 
     @supports (font-variation-settings: normal) {

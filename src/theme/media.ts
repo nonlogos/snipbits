@@ -2,12 +2,12 @@ import { css } from 'styled-components';
 
 export const mediaSizes = {
 	// Default styles written mobile-first assuming 320px width
-	mbl: 375,
-	tab: 700,
-	desk: 990,
-	deskL: 1200,
+	mbl: 360,
+	tab: 599,
+	desk: 1239,
 };
 
+// [TODO]: switch styles to only use min-width
 export const globalTabScreenStyles = css`
 	@media screen and (max-width: ${mediaSizes.tab}px) {
 		article {

@@ -1,11 +1,12 @@
 import { css } from 'styled-components';
 import theme from 'styled-theming';
 
-import { darkColors, dimColors, lightColors } from './colors';
+import { brand, darkColors, dimColors, lightColors } from './colors';
 
 /* Default color theme settings: Dark, Dim, Light */
 export const colors = theme('mode', {
 	dark: css`
+		--brand: ${brand};
 		--surface-1: ${darkColors.surface1};
 		--surface-2: ${darkColors.surface2};
 		--surface-3: ${darkColors.surface3};
@@ -19,6 +20,7 @@ export const colors = theme('mode', {
 		--code-bkgd: ${darkColors.codeBkgd};
 	`,
 	dim: css`
+		--brand: ${brand};
 		--surface-1: ${dimColors.surface1};
 		--surface-2: ${dimColors.surface2};
 		--surface-3: ${dimColors.surface3};
@@ -32,6 +34,7 @@ export const colors = theme('mode', {
 		--code-bkgd: ${dimColors.codeBkgd};
 	`,
 	light: css`
+		--brand: ${brand};
 		--surface-1: ${lightColors.surface1};
 		--surface-2: ${lightColors.surface2};
 		--surface-3: ${lightColors.surface3};
@@ -79,4 +82,5 @@ export const otherVariables = css`
 	--outline-size: max(2px, 0.08em);
 	--outline-style: solid;
 	--outline-color: purple;
+	--border-radius: 15px;
 `;

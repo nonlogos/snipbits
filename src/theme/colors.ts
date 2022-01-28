@@ -1,4 +1,4 @@
-export const brand = `hsl(49, 100%, 51%)`;
+export const brand = `hsl(50, 90%, 40%)`;
 const text2LightAlpha = 0.6;
 
 // dark colors
