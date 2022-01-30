@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search2 as SearchIcon, Sun as SunIcon, LayoutGrid as GridIcon } from '@styled-icons/remix-line';
+import { Search2 as SearchIcon, Sun as SunIcon, LoginCircle as LoginIcon } from '@styled-icons/remix-line';
 import {
 	Twitter as TempLogo,
 	Search2 as SearchActiveIcon,
@@ -9,7 +9,16 @@ import {
 
 import Submenu from './submenu/Submenu';
 import useMobileNav from '../../hooks/useMobileNav';
-import { StyledLogoCoontainer, StyledMenu, StyledSearchForm, StyledContentCheckList } from './navMobile.styles';
+import {
+	StyledHeader,
+	StyledTopNavContainer,
+	StyledlogoContainer,
+	StyledTabList,
+	StyledMenu,
+	StyledSearchForm,
+} from './navMobile.styles';
+import Tabs from '../tabs/Tabs';
+import Tab from '../tabs/tab/Tab';
 
 // [TODO] need to move submenu UL into div to accomodate for heading
 // [TODO] need to pass down active icons
@@ -20,8 +29,9 @@ export default function NavMobile({
 	themeMode,
 	themeModeList,
 	setThemeMode,
-	showContentTypes,
-	handleContents,
+	contentTypes,
+	handleTabChange,
+	currentTabIndex,
 }) {
 	const [menuStates, handleMenuToggle, resetMenu] = useMobileNav(defaultMenuStates);
 
@@ -38,10 +48,19 @@ export default function NavMobile({
 	};
 
 	return (
-		<header>
-			<StyledLogoCoontainer>
-				<TempLogo />
-			</StyledLogoCoontainer>
+		<StyledHeader>
+			<StyledTopNavContainer>
+				<StyledlogoContainer>
+					<TempLogo />
+				</StyledlogoContainer>
+				<StyledTabList>
+					<Tabs currentTabIndex={currentTabIndex} handleTabChange={handleTabChange}>
+						{contentTypes.map((title) => (
+							<Tab key={title} title={title}></Tab>
+						))}
+					</Tabs>
+				</StyledTabList>
+			</StyledTopNavContainer>
 			<StyledMenu aria-label="primary navigation">
 				{/* ---------- Theme mode ------- */}
 				<Submenu
@@ -81,29 +100,15 @@ export default function NavMobile({
 				</Submenu>
 				{/* ---------- Categories ------- */}
 				<Submenu
-					icon={GridIcon}
-					name="categories"
-					expanded={menuStates['categories']}
+					icon={LoginIcon}
+					name="login"
+					expanded={menuStates['login']}
 					handleToggle={handleMenuToggle}
-					title="Select the contents"
+					title="Coming soon..."
 				>
-					{Object.keys(showContentTypes).map((type) => (
-						<li key={type}>
-							<StyledContentCheckList key={type}>
-								<input
-									id={type}
-									type="checkbox"
-									name="content type"
-									value={type}
-									onChange={handleContents}
-									checked={showContentTypes[type]}
-								/>
-								<label htmlFor={type}>{type}</label>
-							</StyledContentCheckList>
-						</li>
-					))}
+					<p>Check back later</p>
 				</Submenu>
 			</StyledMenu>
-		</header>
+		</StyledHeader>
 	);
 }

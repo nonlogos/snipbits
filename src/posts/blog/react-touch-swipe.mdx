@@ -8,3 +8,7 @@ keywords: ['css', 'theme', 'styled component', 'javascript']
 ## Refereneces
 
 - [simple swipe event](https://dev.to/rakumairu/how-to-handle-swipe-event-on-react-carousel-24ab)
+
+## Note
+
+The reference uses onTouchMove to handle touch move event, but during my test I found it to be too fast. As user swipes it triggers multiple mouse move event making swiping views unstable. My solution is to use the difference between onTouchStart and onTouchEnd to decipher the swipe event. It generates the most desirable and stable behavior. The only down side is there's a lag between user swipes and the swiped view response since it's called on touch end. But I still feel that that's the best solution for now.

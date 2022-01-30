@@ -3,26 +3,39 @@ import styled from 'styled-components';
 
 import { mediaSizes } from '../../theme/media';
 
-export const StyledLogoCoontainer = styled.div`
-	--height: 40px;
+export const StyledHeader = styled.header`
+	--logo-height: 40px;
+`;
+
+export const StyledTopNavContainer = styled.div`
+	--height: var(--logo-height);
 	--svg-size: 32px;
 	--horizontal-margin: calc((var(--height) - var(--svg-size)) / 2);
 	position: fixed;
 	top: 0;
 	height: var(--height);
-	background: var(--surface-2);
 	width: 100%;
 	z-index: 10;
-	display: flex;
-	align-items: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	place-items: center;
+	background: black;
 	& svg {
 		width: var(--svg-size);
 		height: var(--svg-size);
-		fill: var(--brand);
+		fill: var(--text-1);
 	}
+`;
+
+export const StyledlogoContainer = styled.div`
+	padding: 0.2rem 0.5rem;
+`;
+
+export const StyledTabList = styled.div`
+	width: 100%;
+	height: 100%;
+	font-size: var(--x2-spacing);
+	line-height: 1rem;
 `;
 
 export const StyledMenu = styled.menu`
@@ -70,34 +83,5 @@ export const StyledSearchForm = styled.form`
 		padding: var(--x2-spacing);
 		line-height: 1.2rem;
 		border-radius: var(--border-radius);
-	}
-`;
-
-export const StyledContentCheckList = styled.div`
-	width: 50%;
-	height: 100%;
-	display: flex;
-	margin: 0 auto;
-	border: 1px solid var(--surface-1);
-	border-radius: var(--border-radius);
-	padding: var(--unit);
-	input[type='checkbox' i] {
-		width: 1.5rem;
-		height: 1.5rem;
-		position: relative;
-		&:before {
-			content: '';
-			position: absolute;
-			top: calc(var(--x2-spacing) / 5);
-			left: var(--unit);
-			width: var(--x2-spacing);
-			height: var(--x2-spacing);
-			border: 1px solid var(--surface-1);
-			border-radius: 50%;
-		}
-	}
-	label {
-		cursor: Pointer;
-		padding-left: var(--unit);
 	}
 `;

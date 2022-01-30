@@ -1,26 +1,31 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 
+import { contentTypes } from '../pageUtils/constants';
 import useThemeMode from '../hooks/useThemeMode';
 import useContentTypes from '../hooks/useContentTypes';
 import { hasTouchScreen } from '../utils/hasTouchScreen';
 import GlobalStyles from '../theme/globalStyles';
 import NavMobile from './nav-mobile/NavMobile';
 
-const contentTypes = ['blogs', 'snippets', 'categories'];
-
 const defaultMenuStates = {
 	theme: false,
 	search: false,
-	categories: false,
+	login: false,
 };
 
-function DefaultLayout({ children }) {
+export default function DefaultLayout({ children }) {
 	const [themeMode, setThemeMode, themeModeList] = useThemeMode();
-	const [showContentTypes, handleSelectedContent] = useContentTypes(contentTypes);
+	const [currentIndex, setCurrentIndex] = useState(1);
+
 	const isMobile = hasTouchScreen();
 	// console.log('hasTouchScreen', isMobile);
-	// [TODO] need to add clone element to children
+
+	const handleTabChange = (index) => {
+		console.log('clicked', index);
+		setCurrentIndex(index);
+	};
+
 	return (
 		<ThemeProvider theme={{ mode: themeMode }}>
 			<GlobalStyles mode={themeMode} />
@@ -30,16 +35,15 @@ function DefaultLayout({ children }) {
 					themeModeList={themeModeList}
 					themeMode={themeMode}
 					setThemeMode={setThemeMode}
-					showContentTypes={showContentTypes}
-					handleContents={handleSelectedContent}
+					contentTypes={contentTypes}
+					handleTabChange={handleTabChange}
+					currentTabIndex={currentIndex}
 				/>
 			)}
 
 			{React.Children.map(children, (child) => {
-				return React.cloneElement(child, { showContentTypes });
+				return React.cloneElement(child, { currentIndex, isMobile });
 			})}
 		</ThemeProvider>
 	);
 }
-
-export default DefaultLayout;
