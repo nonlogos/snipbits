@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 
-import { contentTypes } from '../pageUtils/constants';
+import { contentTypes } from '../utils/constants';
 import Cardlist from '../components/cardlist/Cardlist';
-import { StyledMain, StyledCardsContainer } from '../pageUtils/styles/home.styles';
+import { StyledMain, StyledCardsContainer } from '../utils/styles/home.styles';
 
 const IndexPage = ({ data, currentIndex, isMobile }) => {
 	const [columns, setColumns] = useState(3);
 	// console.log('currentIndex', currentIndex);
 	const mappedData = Object.keys(data).map((key) => {
-		const viewIndex = contentTypes.indexOf(key) + 1;
+		const viewIndex = contentTypes.map((type) => type.name).indexOf(key) + 1;
 		return { viewIndex, type: key, posts: data[key] };
 	});
 

@@ -13,12 +13,10 @@ import {
 	StyledHeader,
 	StyledTopNavContainer,
 	StyledlogoContainer,
-	StyledTabList,
 	StyledMenu,
 	StyledSearchForm,
 } from './navMobile.styles';
-import Tabs from '../tabs/Tabs';
-import Tab from '../tabs/tab/Tab';
+import ContentTabsMenu from '../ContentTabsMenu';
 
 // [TODO] need to move submenu UL into div to accomodate for heading
 // [TODO] need to pass down active icons
@@ -53,13 +51,11 @@ export default function NavMobile({
 				<StyledlogoContainer>
 					<TempLogo />
 				</StyledlogoContainer>
-				<StyledTabList>
-					<Tabs currentTabIndex={currentTabIndex} handleTabChange={handleTabChange}>
-						{contentTypes.map((title) => (
-							<Tab key={title} title={title}></Tab>
-						))}
-					</Tabs>
-				</StyledTabList>
+				<ContentTabsMenu
+					currentTabIndex={currentTabIndex}
+					handleTabChange={handleTabChange}
+					contentTypes={contentTypes}
+				/>
 			</StyledTopNavContainer>
 			<StyledMenu aria-label="primary navigation">
 				{/* ---------- Theme mode ------- */}

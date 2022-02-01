@@ -3,6 +3,7 @@ const text2LightAlpha = 0.6;
 
 // dark colors
 export const darkColors = {
+	header: `hsl(199, 80%, 30%)`,
 	surface1: `hsl(199, 67%, 10%)`,
 	surface2: `hsl(195,65%,5%)`,
 	surface3: `hsl(199, 25%, 15%)`,
@@ -18,6 +19,7 @@ export const darkColors = {
 
 // dim colors
 export const dimColors = {
+	header: `hsl(199, 80%, 30%)`,
 	surface1: `hsl(198, 10%, 15%)`,
 	surface2: `hsl(195, 20%, 10%)`,
 	surface3: `hsl(199, 16%, 20%)`,
@@ -33,6 +35,7 @@ export const dimColors = {
 
 // light colors
 export const lightColors = {
+	header: `hsl(199, 80%, 30%)`,
 	surface1: `hsl(45, 15%, 95%)`,
 	surface2: `hsl(60, 20%, 99%)`,
 	surface3: `hsl(0, 10%, 90%)`,

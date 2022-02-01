@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
+import { navigate } from 'gatsby';
 
-import { contentTypes } from '../pageUtils/constants';
+import { contentTypes } from '../utils/constants';
 import useThemeMode from '../hooks/useThemeMode';
-import useContentTypes from '../hooks/useContentTypes';
 import { hasTouchScreen } from '../utils/hasTouchScreen';
 import GlobalStyles from '../theme/globalStyles';
 import NavMobile from './nav-mobile/NavMobile';
+import Nav from './nav/Nav';
 
 const defaultMenuStates = {
 	theme: false,
@@ -14,7 +15,7 @@ const defaultMenuStates = {
 	login: false,
 };
 
-export default function DefaultLayout({ children }) {
+export default function DefaultLayout({ children, location }) {
 	const [themeMode, setThemeMode, themeModeList] = useThemeMode();
 	const [currentIndex, setCurrentIndex] = useState(1);
 
@@ -22,14 +23,16 @@ export default function DefaultLayout({ children }) {
 	// console.log('hasTouchScreen', isMobile);
 
 	const handleTabChange = (index) => {
-		console.log('clicked', index);
 		setCurrentIndex(index);
+		if (location.pathname !== '/') {
+			navigate('/');
+		}
 	};
 
 	return (
 		<ThemeProvider theme={{ mode: themeMode }}>
 			<GlobalStyles mode={themeMode} />
-			{isMobile && (
+			{isMobile ? (
 				<NavMobile
 					defaultMenuStates={defaultMenuStates}
 					themeModeList={themeModeList}
@@ -39,6 +42,8 @@ export default function DefaultLayout({ children }) {
 					handleTabChange={handleTabChange}
 					currentTabIndex={currentIndex}
 				/>
+			) : (
+				<Nav contentTypes={contentTypes} handleTabChange={handleTabChange} currentTabIndex={currentIndex} />
 			)}
 
 			{React.Children.map(children, (child) => {

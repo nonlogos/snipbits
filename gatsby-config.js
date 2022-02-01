@@ -29,7 +29,7 @@ module.exports = {
 			resolve: `gatsby-plugin-react-svg`,
 			options: {
 				rule: {
-					include: /images\/.*\.svg/,
+					include: /icons\/.*\.svg/,
 					omitKeys: ['xmlnsDc', 'xmlnsCc', 'xmlnsRdf', 'xmlnsSvg', 'xmlnsSodipodi', 'xmlnsInkscape'],
 				},
 			},

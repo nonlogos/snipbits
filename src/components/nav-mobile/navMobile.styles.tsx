@@ -31,13 +31,6 @@ export const StyledlogoContainer = styled.div`
 	padding: 0.2rem 0.5rem;
 `;
 
-export const StyledTabList = styled.div`
-	width: 100%;
-	height: 100%;
-	font-size: var(--x2-spacing);
-	line-height: 1rem;
-`;
-
 export const StyledMenu = styled.menu`
 	--menu-height: clamp(55px, 8vh, 100px);
 	--hidden-y-pos: -300px;

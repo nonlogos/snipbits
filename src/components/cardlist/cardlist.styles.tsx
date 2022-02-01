@@ -15,20 +15,12 @@ export const StyledUl = styled.ul`
 			content: none;
 		}
 	}
+	& > li:not(:first-child) {
+		border-top: 1px solid var(--text-2-light);
+	}
 	@media screen and (min-width: ${mediaSizes.tab}px) {
+		border-top: none;
 		grid-template-columns: repeat(3, minMax(0, 1fr));
 		grid-gap: 1em;
-
-		article {
-			border-top: none;
-			padding: 1.2em;
-			font-size: clamp(1rem, 0.7em, 1.5rem);
-			line-height: 1.5;
-			height: 100%;
-
-			h2 {
-				font-size: 2rem;
-			}
-		}
 	}
 `;

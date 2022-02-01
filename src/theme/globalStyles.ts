@@ -57,7 +57,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     h2 { 
-      font-size: clamp(2rem, 4.5vw, 14rem);
+      font-size: clamp(1.8rem, 4.5vw, 14rem);
       font-weight: 800;
       letter-spacing: 0.05ch;
       text-align: center;

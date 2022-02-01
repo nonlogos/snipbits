@@ -11,7 +11,7 @@ export const postNodeQuery = graphql`
 		fields {
 			contentType
 		}
-		excerpt
+		excerpt(pruneLength: 76)
 		slug
 	}
 `;

@@ -5,21 +5,34 @@ import { mediaSizes } from '../../theme/media';
 
 export const StyledCard = styled.article`
 	cursor: pointer;
-	border-top: 1px solid var(--text-2-light);
 	background: var(--surface-2);
 	width: 100%;
 	padding: 7vh 7vw 5vh 7vw;
 	position: relative;
-	& h2 {
-		font-family: var(--header-font);
+	h2 {
+		/* font-family: var(--header-font); */
+		font-weight: 800;
 		text-align: left;
 		margin: 0;
 	}
-	& a {
+	a {
 		z-index: 10;
-		padding: 5px;
+		padding: 5px 0;
 		border-bottom: none;
 		color: var(--text-1);
+	}
+	@media screen and (min-width: ${mediaSizes.tab}px) {
+		border-radius: var(--border-radius);
+		article {
+			padding: 1.2em;
+			font-size: clamp(1rem, 0.7em, 1.5rem);
+			line-height: 1.5;
+			height: 100%;
+
+			h2 {
+				font-size: 2rem;
+			}
+		}
 	}
 `;
 
@@ -37,6 +50,9 @@ export const StyledContentType = styled.span`
 	text-transform: uppercase;
 	text-align: center;
 	line-height: 1.5em;
+	@media screen and (min-width: ${mediaSizes.tab}px) {
+		border-radius: 0 15px 0 15px;
+	}
 `;
 
 export const StyledTimeContainer = styled.div`

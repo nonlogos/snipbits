@@ -16,7 +16,7 @@ export default function Cardlist({ viewIndex, type, posts }) {
 				<h2>
 					<Link to={node.slug}>{node.frontmatter.title}</Link>
 				</h2>
-				<p>{node.frontmatter.description}</p>
+				<p>{node.excerpt}</p>
 			</Card>
 		</li>
 	);

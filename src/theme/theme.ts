@@ -7,6 +7,7 @@ import { brand, darkColors, dimColors, lightColors } from './colors';
 export const colors = theme('mode', {
 	dark: css`
 		--brand: ${brand};
+		--header: ${darkColors.header};
 		--surface-1: ${darkColors.surface1};
 		--surface-2: ${darkColors.surface2};
 		--surface-3: ${darkColors.surface3};
@@ -21,6 +22,7 @@ export const colors = theme('mode', {
 	`,
 	dim: css`
 		--brand: ${brand};
+		--header: ${dimColors.header};
 		--surface-1: ${dimColors.surface1};
 		--surface-2: ${dimColors.surface2};
 		--surface-3: ${dimColors.surface3};
@@ -35,6 +37,7 @@ export const colors = theme('mode', {
 	`,
 	light: css`
 		--brand: ${brand};
+		--header: ${lightColors.header};
 		--surface-1: ${lightColors.surface1};
 		--surface-2: ${lightColors.surface2};
 		--surface-3: ${lightColors.surface3};
