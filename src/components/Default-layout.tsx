@@ -7,7 +7,7 @@ import useThemeMode from '../hooks/useThemeMode';
 import { hasTouchScreen } from '../utils/hasTouchScreen';
 import GlobalStyles from '../theme/globalStyles';
 import NavMobile from './nav-mobile/NavMobile';
-import Nav from './nav/Nav';
+import Header from './header/Header';
 
 const defaultMenuStates = {
 	theme: false,
@@ -43,7 +43,7 @@ export default function DefaultLayout({ children, location }) {
 					currentTabIndex={currentIndex}
 				/>
 			) : (
-				<Nav contentTypes={contentTypes} handleTabChange={handleTabChange} currentTabIndex={currentIndex} />
+				<Header contentTypes={contentTypes} handleTabChange={handleTabChange} currentTabIndex={currentIndex} />
 			)}
 
 			{React.Children.map(children, (child) => {

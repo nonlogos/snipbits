@@ -7,10 +7,13 @@ export const StyledMain = styled.main`
 	height: 100%;
 	overflow: hidden;
 	margin-top: ${({ isMobile }) => (isMobile ? '40px' : 0)};
+	li {
+		&:before {
+			content: none;
+		}
+	}
 	@media screen and (min-width: ${mediaSizes.tab}px) {
-		margin: 0 auto;
 		margin-top: ${({ isMobile }) => (isMobile ? '5rem' : 0)};
-		width: 80%;
 	}
 `;
 

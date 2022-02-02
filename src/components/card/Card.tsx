@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { navigate } from 'gatsby';
 
-import { StyledCard, StyledContentType, StyledTimeContainer } from './card.styles';
+import { StyledCard, StyledIconContainer, StyledDateContainer } from './card.styles';
 import Tag from '../Tags';
 
 // - The whole block should be linked and clickable if mainlink prop is passed.
@@ -18,9 +18,11 @@ interface ICardActionButton {
 	classStr?: string;
 }
 
-export default function Card({ children, mainlink, mainAction, id, type, keywords, date }) {
+export default function Card({ children, mainlink, mainAction, id, keywords, date, icon, fill }) {
 	const [blockClickable, setblockClickable] = useState(true);
 	const cardRef = useRef(null);
+
+	const Icon = icon;
 
 	const resetBlockClickable = () => {
 		// reset back to default -> for external links that opens in new window/tab
@@ -64,12 +66,12 @@ export default function Card({ children, mainlink, mainAction, id, type, keyword
 
 	return (
 		<StyledCard ref={cardRef} onClick={handleOnClick}>
-			<StyledContentType className="content-type" type={type}>
-				{type}
-			</StyledContentType>
-			<StyledTimeContainer>
+			<StyledIconContainer fill={fill}>
+				<Icon />
+			</StyledIconContainer>
+			<StyledDateContainer>
 				<time dateTime={date}>{date}</time>
-			</StyledTimeContainer>
+			</StyledDateContainer>
 			{updatedWithProps}
 			<Tag tags={keywords} />
 		</StyledCard>

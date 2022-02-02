@@ -86,4 +86,6 @@ export const otherVariables = css`
 	--outline-style: solid;
 	--outline-color: purple;
 	--border-radius: 15px;
+	--tab-content-size: 80%;
+	--transition: 0.2s ease-out;
 `;

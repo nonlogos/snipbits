@@ -4,16 +4,27 @@ import styled from 'styled-components';
 import { mediaSizes } from '../../theme/media';
 
 export const StyledCard = styled.article`
+	--shadow: 6px 6px 14px 1px rgba(0, 0, 0, 0.5);
+	display: grid;
 	cursor: pointer;
-	background: var(--surface-2);
+	background-color: var(--surface-2);
 	width: 100%;
 	padding: 7vh 7vw 5vh 7vw;
 	position: relative;
+	will-change: background-color, box-shadow;
+	transition: background-color var(--transition), box-shadow var(--transition);
+
+	&:hover {
+		background-color: var(--surface-3);
+		-webkit-box-shadow: var(--shadow);
+		-moz-box-shadow: var(--shadow);
+		box-shadow: var(--shadow);
+	}
 	h2 {
-		/* font-family: var(--header-font); */
-		font-weight: 800;
+		font-variation-settings: 'WONK' 0, 'SOFT' 100, 'opsz' 72, 'wght' 100;
+		font-weight: 100;
 		text-align: left;
-		margin: 0;
+		margin: var(--unit) 0 var(--x2-spacing);
 	}
 	a {
 		z-index: 10;
@@ -23,45 +34,40 @@ export const StyledCard = styled.article`
 	}
 	@media screen and (min-width: ${mediaSizes.tab}px) {
 		border-radius: var(--border-radius);
-		article {
-			padding: 1.2em;
-			font-size: clamp(1rem, 0.7em, 1.5rem);
-			line-height: 1.5;
-			height: 100%;
+		padding: 1.5em;
+		font-size: clamp(1rem, 0.7em, 1.5rem);
+		line-height: 1.5;
+		height: 100%;
 
-			h2 {
-				font-size: 2rem;
-			}
+		h2 {
+			font-size: 1.7rem;
+			font-variation-settings: 'WONK' 0, 'SOFT' 100, 'opsz' 50, 'wght' 400;
+			text-align: center;
 		}
 	}
 `;
 
-export const StyledContentType = styled.span`
+export const StyledIconContainer = styled.div`
+	--spacing: var(--x3-spacing);
 	position: absolute;
-	top: -1px;
-	right: 0;
-	width: clamp(6.5em, 30vw, 150px);
-	background: ${({ type }) =>
-		type === 'blog' ? 'var(--primary)' : type === 'snippets' ? 'var(--secondary-1)' : 'var(--secondary-2)'};
-	/* padding-left: 1em; */
-	border-radius: 0 0 0 15px;
-	font-weight: 500;
-	color: var(--surface-1);
-	text-transform: uppercase;
-	text-align: center;
-	line-height: 1.5em;
-	@media screen and (min-width: ${mediaSizes.tab}px) {
-		border-radius: 0 15px 0 15px;
+	right: var(--spacing);
+	top: var(--spacing);
+	width: var(--x3-spacing);
+	svg {
+		fill: ${({ fill }) => `var(${fill})` || 'var(--primary)'};
 	}
 `;
 
-export const StyledTimeContainer = styled.div`
-	border-left: 2px solid var(--text-2-light);
-	padding: 0 0 0 var(--unit);
-	color: var(--text-2-light);
-	line-height: 0.8em;
+export const StyledDateContainer = styled.div`
+	--color: var(--header);
 	position: relative;
 	height: 0.8em;
+	border-left: 2px solid var(--color);
+	margin-top: var(--x5-spacing);
+	padding: 0 0 0 var(--unit);
+	color: var(--color);
+	line-height: 0.8em;
+
 	& time {
 		font-size: 0.9em;
 		line-height: 0.9em;

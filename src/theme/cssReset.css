@@ -16,8 +16,9 @@
 	box-sizing: border-box;
 }
 
-/* Reapply the pointer cursor for anchor tags */
-a {
+/* Reapply the pointer cursor for anchor tags and buttons */
+a,
+button {
 	cursor: revert;
 }
 

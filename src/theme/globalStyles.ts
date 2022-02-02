@@ -178,7 +178,7 @@ const GlobalStyles = createGlobalStyle`
 
     blockquote {
       position: relative;
-      width: 80%;
+      width: var(--tab-content-size);
       /* border-left: 6px solid var(--text-2-light); */
       margin: 6vh auto;
       /* padding-left: 1.3em;

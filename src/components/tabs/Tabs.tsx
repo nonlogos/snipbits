@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mediaSizes } from '../../theme/media';
 
 const StyledMenu = styled.menu`
 	display: flex;

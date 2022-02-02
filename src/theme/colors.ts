@@ -6,7 +6,7 @@ export const darkColors = {
 	header: `hsl(199, 80%, 30%)`,
 	surface1: `hsl(199, 67%, 10%)`,
 	surface2: `hsl(195,65%,5%)`,
-	surface3: `hsl(199, 25%, 15%)`,
+	surface3: `hsl(199, 40%, 20%)`,
 	surface4: `hsl(199, 4%, 15%)`,
 	text1: `hsl(38, 14%, 85%)`,
 	text2: `hsl(30, 1%, 65%)`,

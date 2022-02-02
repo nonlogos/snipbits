@@ -8,19 +8,22 @@ export const StyledUl = styled.ul`
 	align-content: start;
 	width: 100%;
 	-webkit-overflow-scrolling: touch;
-	li {
-		grid: auto-flow / 1fr;
+	& > li {
 		padding-left: 0;
-		&:before {
-			content: none;
+
+		&:not(:first-child) {
+			border-top: 1px solid var(--text-2-light);
 		}
 	}
-	& > li:not(:first-child) {
-		border-top: 1px solid var(--text-2-light);
-	}
+
 	@media screen and (min-width: ${mediaSizes.tab}px) {
-		border-top: none;
-		grid-template-columns: repeat(3, minMax(0, 1fr));
+		padding: 0 6vw;
+		margin-top: var(--x5-spacing);
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		grid-gap: 1em;
+
+		& > li:not(:first-child) {
+			border-top: none;
+		}
 	}
 `;

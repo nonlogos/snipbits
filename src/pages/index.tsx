@@ -10,7 +10,9 @@ const IndexPage = ({ data, currentIndex, isMobile }) => {
 	// console.log('currentIndex', currentIndex);
 	const mappedData = Object.keys(data).map((key) => {
 		const viewIndex = contentTypes.map((type) => type.name).indexOf(key) + 1;
-		return { viewIndex, type: key, posts: data[key] };
+		const icon = contentTypes[viewIndex - 1].icon;
+		const fill = contentTypes[viewIndex - 1].fill;
+		return { viewIndex, type: key, icon, posts: data[key], fill };
 	});
 
 	return (
@@ -20,8 +22,9 @@ const IndexPage = ({ data, currentIndex, isMobile }) => {
 					<Cardlist
 						key={typedData.type}
 						viewIndex={typedData.viewIndex}
-						type={typedData.type}
 						posts={typedData.posts}
+						icon={typedData.icon}
+						fill={typedData.fill}
 					/>
 				))}
 			</StyledCardsContainer>

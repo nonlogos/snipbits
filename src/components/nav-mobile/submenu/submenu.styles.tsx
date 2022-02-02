@@ -10,7 +10,6 @@ export const StyledButton = styled.button`
 	text-align: center;
 	background: ${({ theme }) => (theme.mode === 'light' ? `var(--text-1)` : `var(--brand)`)};
 	padding: 0.3rem;
-	cursor: pointer;
 	& .nav-icon {
 		width: 24px;
 		height: 24px;
