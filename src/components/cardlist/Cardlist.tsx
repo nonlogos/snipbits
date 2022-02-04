@@ -23,5 +23,5 @@ export default function Cardlist({ viewIndex, posts, icon, fill }) {
 		</li>
 	);
 
-	return <StyledUl viewIndex={viewIndex}>{posts.nodes.map(mapNode)}</StyledUl>;
+	return <StyledUl viewIndex={viewIndex}>{posts.map(mapNode)}</StyledUl>;
 }

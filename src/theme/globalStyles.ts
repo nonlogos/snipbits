@@ -61,7 +61,7 @@ const GlobalStyles = createGlobalStyle`
       font-weight: 800;
       letter-spacing: 0.05ch;
       text-align: center;
-      max-width: 25ch;
+      /* max-width: 25ch; */
       padding: var(--x2-spacing) 0;
       margin: 14vh auto 8vh;
     }

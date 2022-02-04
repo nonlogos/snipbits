@@ -1,11 +1,12 @@
 const path = require('path');
+const axios = require('axios');
 const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
 // Create new pages for all mdx files using the post-template template
 exports.createPages = async ({ graphql, actions, reporter }) => {
 	const { createPage } = actions;
 
-	const result = await graphql(`
+	const postsResult = await graphql(`
 		query {
 			allMdx {
 				edges {
@@ -19,11 +20,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 		}
 	`);
 
-	if (result.errors) {
+	if (postsResult.errors) {
 		reporter.panicOnBuild('ERROR: loading createPages query');
 	}
 
-	const posts = result.data.allMdx.edges;
+	const posts = postsResult.data.allMdx.edges;
 
 	posts.forEach(({ node }, index) => {
 		createPage({
@@ -38,6 +39,82 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 				id: node.id,
 			},
 		});
+	});
+
+	// create index page with js-search settings for each content type
+	// [TODO] see if we can add fragment here
+	const indexPostsResult = await graphql(`
+		query postQuery {
+			blogs: allMdx(
+				sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
+				filter: { fields: { contentType: { eq: "blog" } } }
+			) {
+				nodes {
+					id
+					frontmatter {
+						date(locale: "", formatString: "MM-DD-YYYY")
+						title
+						keywords
+						description
+					}
+					fields {
+						contentType
+					}
+					excerpt(pruneLength: 76)
+					slug
+				}
+				totalCount
+			}
+			snippets: allMdx(
+				sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
+				filter: { fields: { contentType: { eq: "snippets" } } }
+			) {
+				nodes {
+					id
+					frontmatter {
+						date(locale: "", formatString: "MM-DD-YYYY")
+						title
+						keywords
+						description
+					}
+					fields {
+						contentType
+					}
+					excerpt(pruneLength: 76)
+					slug
+				}
+				totalCount
+			}
+		}
+	`);
+
+	const indexBookmarksResult = await axios.get('https://bvaughn.github.io/js-search/books.json');
+
+	if (indexPostsResult.errors || !indexBookmarksResult.data) {
+		reporter.panicOnBuild('ERROR: loading createPages query');
+	}
+	const bookmarks = indexBookmarksResult.data.books;
+	// const allContents = { ...indexPostsResult.data, bookmarks };
+
+	createPage({
+		path: '/',
+		component: path.resolve(`./src/templates/SearchResultsTemplate.tsx`),
+		context: {
+			bookmarkData: {
+				allBookmarks: bookmarks,
+				options: {
+					SearchIndex: 'isbn',
+					Indexes: ['title', 'author', 'isbn'],
+				},
+			},
+			postsData: {
+				allPosts: indexPostsResult.data,
+				options: {
+					SearchIndex: 'id',
+					Indexes: [['frontmatter', 'description'], ['frontmatter', 'title'], ['frontmatter', 'keywords'], 'excerpt'],
+				},
+			},
+		},
 	});
 };
 

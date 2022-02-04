@@ -8,7 +8,7 @@ import {
 } from '@styled-icons/remix-fill';
 
 import Submenu from './submenu/Submenu';
-import useMobileNav from '../../hooks/useMobileNav';
+import useMobileNav from '../../utils/hooks/useMobileNav';
 import {
 	StyledHeader,
 	StyledTopNavContainer,

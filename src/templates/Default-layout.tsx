@@ -3,11 +3,11 @@ import { ThemeProvider } from 'styled-components';
 import { navigate } from 'gatsby';
 
 import { contentTypes } from '../utils/constants';
-import useThemeMode from '../hooks/useThemeMode';
+import useThemeMode from '../utils/hooks/useThemeMode';
 import { hasTouchScreen } from '../utils/hasTouchScreen';
 import GlobalStyles from '../theme/globalStyles';
-import NavMobile from './nav-mobile/NavMobile';
-import Header from './header/Header';
+import NavMobile from '../components/nav-mobile/NavMobile';
+import Header from '../components/header/Header';
 
 const defaultMenuStates = {
 	theme: false,

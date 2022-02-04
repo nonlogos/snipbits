@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from './src/components/Default-layout';
+import Layout from './src/templates/Default-layout';
 // const React = require( 'react' );
 // const Layout = require('./src/components/Default-layout');
 

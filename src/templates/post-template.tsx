@@ -5,7 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 
-import Layout from '../components/Default-layout';
+import Layout from './Default-layout';
 import CodeBlock from '../components/Codeblock';
 import Seo from '../components/Seo';
 import Header from '../components/mdx/Header';

@@ -5,8 +5,8 @@ import { StyledNav, StyledHeader, StyledContentTabs } from './header.styles';
 import DesktopNav from './desktopNav/DesktopNav';
 import ContentTabsMenu from '../ContentTabsMenu';
 import SearchInput from '../SearchInput';
-import useWindowResizeListener from '../../hooks/useWindowResizeListener';
-import useScrollEventListener from '../../hooks/useScrollEventListener';
+import useWindowResizeListener from '../../utils/hooks/useWindowResizeListener';
+import useScrollEventListener from '../../utils/hooks/useScrollEventListener';
 import { mediaSizes } from '../../theme/media';
 
 const tabMediaSize = mediaSizes.tab;

@@ -5,16 +5,6 @@ description: 'code for detecting most mobile browsers. Can be used to display mo
 keywords: ['mobile browsers detection', 'user agent', 'javascript']
 ---
 
-After looking at many user agent solutions online for a good way to detect mobile browsers, I found the MDN's recommendation to be the most reasonable. The key here is not to redesign sites for specific mobile browsers but to optimize certain UIs for better usability on mobile devices.
-
-Not all devices are the same: some mobile devices have big screen sizes, some desktops have a small touchscreen, some people use smart TV's which are an entirely different ballgame altogether, and some people can dynamically change the width and height of their screen by flipping their tablet on its side! Instead of user agent sniffing, we can use Navigator.maxTouchPoints to detect if the user's device has a touchscreen.
-
-> It's worth re-iterating:
->
-> it's very rarely a good idea to use user agent sniffing. You can almost always find a better, more broadly compatible way to solve your problem!
-
----
-
 ```javascript
 var hasTouchScreen = false;
 if ('maxTouchPoints' in navigator) {
@@ -36,5 +26,15 @@ if ('maxTouchPoints' in navigator) {
 }
 if (hasTouchScreen) document.getElementById('exampleButton').style.padding = '1em';
 ```
+
+After looking at many user agent solutions online for a good way to detect mobile browsers, I found the MDN's recommendation to be the most reasonable. The key here is not to redesign sites for specific mobile browsers but to optimize certain UIs for better usability on mobile devices.
+
+Not all devices are the same: some mobile devices have big screen sizes, some desktops have a small touchscreen, some people use smart TV's which are an entirely different ballgame altogether, and some people can dynamically change the width and height of their screen by flipping their tablet on its side! Instead of user agent sniffing, we can use Navigator.maxTouchPoints to detect if the user's device has a touchscreen.
+
+> It's worth re-iterating:
+>
+> it's very rarely a good idea to use user agent sniffing. You can almost always find a better, more broadly compatible way to solve your problem!
+
+---
 
 ~ [MDN browser detection using the user agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent)
