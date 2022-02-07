@@ -85,6 +85,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 				}
 				totalCount
 			}
+			tags: allMdx {
+				group(field: frontmatter___keywords) {
+					tag: fieldValue
+				}
+			}
 		}
 	`);
 

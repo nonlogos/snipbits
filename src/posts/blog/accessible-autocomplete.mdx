@@ -1,0 +1,137 @@
+---
+title: 'Accessible Autocomplete Input'
+date: '2022-02-6'
+description: 'list of semantic and functional requirements to build a fully accessible autocomplete input/search based on WAI-ARIA best practices'
+keywords: ['component', 'autocomplete', 'form', 'accessibility']
+---
+
+Autocomplete input or searchbox helps users to choose from a list of suggeestions as they type.
+
+## References
+
+- [alpha gov](https://alphagov.github.io/accessible-autocomplete/)
+- [Harvard](https://accessibility.huit.harvard.edu/technique-aria-autocomplete)
+- [combobox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Combobox_Role)
+
+## Autocomplete anatomy
+
+- autocomplete container
+- input (text/search)
+- suggestion list (select or ul)
+- live region for assistive hints
+
+### autocomplete container
+
+wrapper for all the autocomplete parts. If using label, label should be outside of the wrapper.
+
+### autocomplete input
+
+set `autocomplete="off"`, which suppresses native autocomplete functionality that could get in the way of our custom UI. The ARIA property of `aria-autocomplete="list"` replaces the semantics so that “autocomplete” is announced on focus.
+
+use `aria-expanded` to specify if suggestion list is shown
+
+`role="combobox"`
+
+use `aria-owns` to link to the list box id
+
+### suggestion list
+
+listbox is made focusable using tabindex="0", and it is focused if the user presses the down arrow key.
+
+Note the listbox role and that each child of the listbox has a role of option. This is the only way that a listbox will provide the correct information to screen readers.
+
+Also note that the listbox has a property called _aria-activedescendant_. This keeps track of the “active” option as the user searches through the options with the up and down keys. It uses the current option's id as its value, and that value is updated with JavaScript. That way, whenever a new option is made active, screen readers should announce the option's text, such as “cat,” and the index of the option, such as “two of three.”
+
+```html
+<div role="listbox" tabindex="0" aria-activedescendant="pets-0">
+	<div id="pets-0" role="option" tabindex="-1">hamster</div>
+	<div id="pets-1" role="option" tabindex="-1">hermit crab</div>
+	<div id="pets-2" role="option" tabindex="-1">horse</div>
+</div>
+```
+
+### arial-live region
+
+ensure that screen-reader users are notified on how many suggestions are available (suggestions.length) and—importantly—how to choose from those suggestions.
+
+```html
+<div class="suggestions-help" role="status" aria-live="polite">{ ...dynamic text update }</div>
+```
+
+#### suggestive text examples
+
+-_on focus_: type in one or more characters to see a list of results
+
+-_on typing_: There are `suggestions.length+` suggestions. Use the up and down arrows to browse.'
+
+#### position inside a form
+
+```html
+<form>
+	<label for="pets">Choose a pet</label>
+	<div class="suggestions-container">
+		<div class="suggestions-help" role="status" aria-live="polite" class="hidden"></div>
+		<input id="pets" data-suggest type="text" autocomplete="off" aria-autocomplete="list" />
+		<div class="suggestions"></div>
+		<span style="display: none;" id="last-location__assistiveHint"
+			>When autocomplete results are available use up and down arrows to review and enter to select. Touch device users,
+			explore by touch or with swipe gestures.</span
+		>
+	</div>
+</form>
+```
+
+###
+
+### Complete example
+
+```html
+<form action="form.html" method="get">
+	<label for="last-location">What was the last location you visited?</label>
+	<div class="autocomplete-wrapper">
+		<div>
+			<div class="autocomplete__wrapper">
+				<div
+					style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin-bottom: -1px; margin-right: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
+				>
+					<div id="last-location__status--A" role="status" aria-atomic="true" aria-live="polite"></div>
+					<div id="last-location__status--B" role="status" aria-atomic="true" aria-live="polite"></div>
+				</div>
+				<input
+					aria-expanded="false"
+					aria-owns="last-location__listbox"
+					aria-autocomplete="both"
+					autocomplete="off"
+					class="autocomplete__input autocomplete__input--default"
+					id="last-location"
+					name=""
+					placeholder=""
+					type="text"
+					role="combobox"
+				/>
+				<ul
+					class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--hidden"
+					id="last-location__listbox"
+					role="listbox"
+				>
+					<li
+						aria-selected="false"
+						class="autocomplete__option"
+						id="last-location__option--0"
+						role="option"
+						tabindex="-1"
+						aria-setsize="1"
+					>
+						Réunion
+					</li>
+				</ul>
+				<span style="display: none;" id="last-location__assistiveHint"
+					>When autocomplete results are available use up and down arrows to review and enter to select. Touch device
+					users, explore by touch or with swipe gestures.
+				</span>
+			</div>
+		</div>
+	</div>
+	<button type="submit">Submit your answer</button>
+</form>
+```

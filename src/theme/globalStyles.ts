@@ -111,6 +111,7 @@ const GlobalStyles = createGlobalStyle`
 
     button {
       font-weight: 500;
+      cursor: pointer;
     }
 
     em, strong {

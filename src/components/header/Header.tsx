@@ -4,14 +4,14 @@ import Logo from '../Logo';
 import { StyledNav, StyledHeader, StyledContentTabs } from './header.styles';
 import DesktopNav from './desktopNav/DesktopNav';
 import ContentTabsMenu from '../ContentTabsMenu';
-import SearchInput from '../SearchInput';
+import SearchInput from '../searchInput/SearchInput';
 import useWindowResizeListener from '../../utils/hooks/useWindowResizeListener';
 import useScrollEventListener from '../../utils/hooks/useScrollEventListener';
 import { mediaSizes } from '../../theme/media';
 
 const tabMediaSize = mediaSizes.tab;
 
-export default function Nav({ currentTabIndex, handleTabChange, contentTypes }) {
+export default function Nav({ currentTabIndex, handleTabChange, contentTypes, tags }) {
 	const [scrollTrigger, setScrollTrigger] = useState(0);
 	const [isFixed, setIsFixed] = useState(false);
 	const { scrollData } = useScrollEventListener();
@@ -54,7 +54,7 @@ export default function Nav({ currentTabIndex, handleTabChange, contentTypes }) 
 			<StyledContentTabs ref={contentTabsRef} isFixed={isFixed}>
 				{vpWidth > tabMediaSize ? (
 					<>
-						<SearchInput />
+						<SearchInput tags={tags} />
 						<ContentTabsMenu
 							currentTabIndex={currentTabIndex}
 							handleTabChange={handleTabChange}
