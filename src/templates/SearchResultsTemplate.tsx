@@ -37,13 +37,9 @@ export default function SearchResultsTemplate({ pageContext, currentIndex, isMob
 	// const mappedBookmarks = mapToIndexNodes(allBookmarks, 'bookmarks');
 	const mappedData = [mappedBlogs, mappedSnippets];
 
-	console.log('what data is this?', pageContext, currentIndex, isMobile, location.get('q'));
+	// console.log('what data is this?', pageContext, currentIndex, isMobile, location.get('q'));
 
-	console.log('location', queryStr);
-
-	useEffect(() => {
-		console.log('effect location', queryStr);
-	}, [queryStr]);
+	// console.log('location', queryStr);
 
 	return (
 		<StyledMain isMobile={isMobile}>

@@ -45,7 +45,7 @@ export default function Tab({ title, index, icon, fill, handleTabChange, current
 	const Icon = icon;
 	const classStr = index === currentTabIndex ? 'active' : '';
 	return (
-		<StyledLi role="tab">
+		<StyledLi role="tab" aria-selected={index === currentTabIndex} aria-controls={`panel-${index}`}>
 			<StyledButton className={classStr} onClick={() => handleTabChange(index)} bkgd={fill}>
 				<StyledIcon>
 					<Icon />

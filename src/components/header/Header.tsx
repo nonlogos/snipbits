@@ -4,7 +4,7 @@ import Logo from '../Logo';
 import { StyledNav, StyledHeader, StyledContentTabs } from './header.styles';
 import DesktopNav from './desktopNav/DesktopNav';
 import ContentTabsMenu from '../ContentTabsMenu';
-import SearchInput from '../searchInput/SearchInput';
+import SearchCombo from '../searchCombo/SearchCombo';
 import useWindowResizeListener from '../../utils/hooks/useWindowResizeListener';
 import useScrollEventListener from '../../utils/hooks/useScrollEventListener';
 import { mediaSizes } from '../../theme/media';
@@ -54,7 +54,7 @@ export default function Nav({ currentTabIndex, handleTabChange, contentTypes, ta
 			<StyledContentTabs ref={contentTabsRef} isFixed={isFixed}>
 				{vpWidth > tabMediaSize ? (
 					<>
-						<SearchInput tags={tags} />
+						<SearchCombo tags={tags} />
 						<ContentTabsMenu
 							currentTabIndex={currentTabIndex}
 							handleTabChange={handleTabChange}

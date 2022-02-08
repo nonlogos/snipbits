@@ -74,6 +74,7 @@ export const spacing = css`
 	--x4-spacing: calc(var(--unit) * 5);
 	--x5-spacing: calc(var(--unit) * 5);
 	--x6-spacing: calc(var(--unit) * 6);
+	--x8-spacing: calc(var(--unit) * 8);
 	--10-spacing: calc(var(--unit) * 10);
 	--20-spacing: calc(var(--unit) * 20);
 	--30-spacing: calc(var(--unit) * 30);

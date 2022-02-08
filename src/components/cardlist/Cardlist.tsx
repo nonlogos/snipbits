@@ -23,5 +23,9 @@ export default function Cardlist({ viewIndex, posts, icon, fill }) {
 		</li>
 	);
 
-	return <StyledUl viewIndex={viewIndex}>{posts.map(mapNode)}</StyledUl>;
+	return (
+		<StyledUl id={`panel-${viewIndex}`} role="tabpanel" tabIndex={0} aria-labelledby={`tab-${viewIndex}`}>
+			{posts.map(mapNode)}
+		</StyledUl>
+	);
 }

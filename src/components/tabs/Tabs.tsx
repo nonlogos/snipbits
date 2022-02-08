@@ -11,7 +11,7 @@ const StyledMenu = styled.menu`
 
 export default function Tabs({ children, currentTabIndex, handleTabChange }) {
 	return (
-		<StyledMenu role="tablist">
+		<StyledMenu role="tablist" aria-label="Category List">
 			{React.Children.map(children, (child, i) => {
 				return React.cloneElement(child, { currentTabIndex, handleTabChange, index: i + 1 });
 			})}
