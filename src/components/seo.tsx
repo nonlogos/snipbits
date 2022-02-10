@@ -30,6 +30,8 @@ function Seo({ description = '', lang = 'en', meta = [], title = '', keywords = 
 	const metaKeywords = keywords || site.siteMetadata.keywords;
 	const defaultTitle = site.siteMetadata?.title;
 
+	//**[TODO] figure out about ogp image and favicon url */
+
 	return (
 		<Helmet
 			htmlAttributes={{

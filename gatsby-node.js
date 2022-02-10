@@ -7,7 +7,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 	const { createPage } = actions;
 
 	const postsResult = await graphql(`
-		query {
+		query postQuery {
 			allMdx {
 				edges {
 					node {
@@ -44,7 +44,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 	// create index page with js-search settings for each content type
 	// [TODO] see if we can add fragment here
 	const indexPostsResult = await graphql(`
-		query postQuery {
+		query allPostsQuery {
 			blogs: allMdx(
 				sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
 				filter: { fields: { contentType: { eq: "blog" } } }
@@ -85,11 +85,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 				}
 				totalCount
 			}
-			tags: allMdx {
-				group(field: frontmatter___keywords) {
-					tag: fieldValue
-				}
-			}
 		}
 	`);
 
@@ -103,7 +98,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
 	createPage({
 		path: '/',
-		component: path.resolve(`./src/templates/SearchResultsTemplate.tsx`),
+		component: path.resolve(`./src/templates/searchResults/SearchResultsTemplate.tsx`),
 		context: {
 			bookmarkData: {
 				allBookmarks: bookmarks,

@@ -11,7 +11,7 @@ import { mediaSizes } from '../../theme/media';
 
 const tabMediaSize = mediaSizes.tab;
 
-export default function Nav({ currentTabIndex, handleTabChange, contentTypes, tags }) {
+export default function Nav({ currentTabIndex, handleTabChange, contentTypes }) {
 	const [scrollTrigger, setScrollTrigger] = useState(0);
 	const [isFixed, setIsFixed] = useState(false);
 	const { scrollData } = useScrollEventListener();
@@ -54,7 +54,7 @@ export default function Nav({ currentTabIndex, handleTabChange, contentTypes, ta
 			<StyledContentTabs ref={contentTabsRef} isFixed={isFixed}>
 				{vpWidth > tabMediaSize ? (
 					<>
-						<SearchCombo tags={tags} />
+						<SearchCombo />
 						<ContentTabsMenu
 							currentTabIndex={currentTabIndex}
 							handleTabChange={handleTabChange}

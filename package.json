@@ -22,6 +22,8 @@
 		"@styled-icons/remix-fill": "^10.18.0",
 		"@styled-icons/remix-line": "^10.18.0",
 		"@types/js-search": "^1.4.0",
+		"aws-amplify": "^4.3.14",
+		"aws-amplify-react": "^5.1.9",
 		"axios": "^0.25.0",
 		"babel-plugin-styled-components": "^2.0.2",
 		"gatsby": "^4.4.0",

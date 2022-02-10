@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { ARROW_DOWN, ARROW_UP, ENTER } from '../constants';
+
 // dropdown state management
 // handle isExpanded or not
 // handle onclick on child list item
@@ -40,21 +42,21 @@ export default function useDropdown({ list = [], defaultShow = false, onSelect =
 		const listLength = dropdownList.length - 1;
 		if (showDropdown) {
 			switch (e.code) {
-				case 'ArrowDown':
-					if (focusIndex <= listLength) {
+				case ARROW_DOWN:
+					if (focusIndex < listLength) {
 						setFocusIndex(focusIndex + 1);
 					} else {
 						setFocusIndex(0);
 					}
 					break;
-				case 'ArrowUp':
+				case ARROW_UP:
 					if (focusIndex > 0) {
 						setFocusIndex(focusIndex - 1);
 					} else {
 						setFocusIndex(listLength);
 					}
 					break;
-				case 'Enter':
+				case ENTER:
 					handleSelect(dropdownList[focusIndex]);
 					setFocusIndex(0);
 					break;

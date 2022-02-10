@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "snipbits",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/tai-yuanyu/Desktop/projects/snipbit/app/amplify/backend/api/snipbits/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authsnipbits59f7c5b8"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 30,
+        "apiKeyExpirationDate": "2022-03-12T01:04:17.350Z",
+        "keyDescription": "bookmark"
+      }
+    ]
+  }
+}

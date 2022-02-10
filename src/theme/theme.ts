@@ -75,10 +75,10 @@ export const spacing = css`
 	--x5-spacing: calc(var(--unit) * 5);
 	--x6-spacing: calc(var(--unit) * 6);
 	--x8-spacing: calc(var(--unit) * 8);
-	--10-spacing: calc(var(--unit) * 10);
-	--20-spacing: calc(var(--unit) * 20);
-	--30-spacing: calc(var(--unit) * 30);
-	--40-spacing: calc(var(--unit) * 40);
+	--x10-spacing: calc(var(--unit) * 10);
+	--x20-spacing: calc(var(--unit) * 20);
+	--x30-spacing: calc(var(--unit) * 30);
+	--x40-spacing: calc(var(--unit) * 40);
 `;
 
 export const otherVariables = css`

@@ -5,3 +5,8 @@ export const contentTypes = [
 	{ name: 'snippets', icon: SnippetIcon, fill: '--secondary-1' },
 	{ name: 'bookmarks', icon: BookmarkIcon, fill: '--secondary-2' },
 ];
+
+// Constants for keyboard event management
+export const ARROW_DOWN = 'ArrowDown';
+export const ARROW_UP = 'ArrowUp';
+export const ENTER = 'Enter';

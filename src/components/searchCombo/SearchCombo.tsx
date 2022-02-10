@@ -1,12 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 
+import { TagsContext } from '../../utils/contexts';
 import Input from './input/Input';
 import Option from './option/Option';
 import useSearchCombo from '../../utils/hooks/useSearchCombo';
 import { StyledSearchForm, StyledSuggestions } from './searchCombo.styles';
 
-export function Search({ tags }) {
+function mapTags(tags) {
+	return tags.map((tagObj) => tagObj.tag);
+}
+
+export function Search() {
 	const inputRef = useRef<HTMLInputElement>(null);
+	const tagsList = useRef(null);
+	const tags = useContext(TagsContext);
+	// format the tags list for search input's auto complete
+	tagsList.current = mapTags(tags);
 	const {
 		input,
 		showDropdown,
@@ -19,7 +28,7 @@ export function Search({ tags }) {
 		handleOnKeyDown,
 		handleReset,
 	} = useSearchCombo({
-		defaultList: tags,
+		defaultList: tagsList.current,
 		ref: inputRef,
 	});
 

@@ -169,6 +169,16 @@ const GlobalStyles = createGlobalStyle`
       padding-bottom: 2vh;
     }
 
+    input {
+      background: var(--text-1);
+      padding: var(--unit);
+      font-size: var(--font-size);
+      line-height: var(--font-size);
+      border-radius: var(--border-radius);
+      vertical-align: baseline;
+      color: var(--surface-1);
+    }
+
     code {
       background: var(--code-bkgd);
       color: ${({ mode }: IGlobalStyles) => (mode === 'light' ? `var(--surface-1)` : 'inherit')};
@@ -218,8 +228,8 @@ const GlobalStyles = createGlobalStyle`
       margin: 0 auto;
 
       header {
-        padding-top: clamp(var(--x4-spacing), 23vh, var(--40-spacing));
-        padding-bottom: clamp(var(--x3-spacing), 15vh, var(--30-spacing));
+        padding-top: clamp(var(--x4-spacing), 23vh, var(--x40-spacing));
+        padding-bottom: clamp(var(--x3-spacing), 15vh, var(--x30-spacing));
         display: flex;
         justify-content: center;
         text-align: center;

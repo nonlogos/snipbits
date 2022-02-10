@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { navigate } from 'gatsby';
+import { navigate, StaticQuery, graphql } from 'gatsby';
 
+import { TagsContext } from '../utils/contexts';
 import { contentTypes } from '../utils/constants';
 import useThemeMode from '../utils/hooks/useThemeMode';
 import { hasTouchScreen } from '../utils/hasTouchScreen';
@@ -15,24 +16,17 @@ const defaultMenuStates = {
 	login: false,
 };
 
-function mapTags(tags) {
-	return tags.map((tagObj) => tagObj.tag);
-}
-
-export default function DefaultLayout({ children, location, pageContext }) {
+export default function DefaultLayout({ children, location }) {
 	const [themeMode, setThemeMode, themeModeList] = useThemeMode();
 	const [currentIndex, setCurrentIndex] = useState(1);
-	const taglist = useRef([]);
+
+	console.log('location', location);
 
 	// check if this is a mobile device browser
 	const isMobile = hasTouchScreen();
 	// console.log('hasTouchScreen', isMobile);
 
-	// format the tags list for search input's auto complete
-
-	const tags = pageContext.postsData?.allPosts?.tags?.group;
-	taglist.current = mapTags(tags);
-
+	// handler for tab(category) changes
 	const handleTabChange = (index) => {
 		setCurrentIndex(index);
 		if (location.pathname !== '/') {
@@ -54,11 +48,21 @@ export default function DefaultLayout({ children, location, pageContext }) {
 					currentTabIndex={currentIndex}
 				/>
 			) : (
-				<Header
-					contentTypes={contentTypes}
-					handleTabChange={handleTabChange}
-					currentTabIndex={currentIndex}
-					tags={taglist.current}
+				<StaticQuery
+					query={graphql`
+						query tagsQuery {
+							allMdx {
+								group(field: frontmatter___keywords) {
+									tag: fieldValue
+								}
+							}
+						}
+					`}
+					render={(data) => (
+						<TagsContext.Provider value={data.allMdx.group}>
+							<Header contentTypes={contentTypes} handleTabChange={handleTabChange} currentTabIndex={currentIndex} />
+						</TagsContext.Provider>
+					)}
 				/>
 			)}
 

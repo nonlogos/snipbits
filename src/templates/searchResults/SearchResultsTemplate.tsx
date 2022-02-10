@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useLocation } from '@reach/router';
 
-import useJsSearch from '../utils/hooks/useJsSearch';
-import { contentTypes } from '../utils/constants';
-import Cardlist from '../components/cardlist/Cardlist';
-import { StyledMain, StyledCardsContainer } from '../utils/styles/home.styles';
+import useJsSearch from '../../utils/hooks/useJsSearch';
+import { contentTypes } from '../../utils/constants';
+import Cardlist from '../../components/cardlist/Cardlist';
+import { StyledMain, StyledCardsContainer } from './searchResults.styles';
 
 function mapToIndexNodes(list, name) {
 	let viewIndex = 0;

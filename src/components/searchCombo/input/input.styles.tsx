@@ -6,13 +6,7 @@ export const StyledInputContainer = styled.div`
 
 export const StyledInput = styled.input`
 	width: 100%;
-	background: var(--text-1);
-	padding: var(--unit);
 	padding-left: var(--x8-spacing);
-	font-size: var(--font-size);
-	line-height: var(--font-size);
-	border-radius: var(--border-radius);
-	vertical-align: baseline;
 	&::-webkit-search-cancel-button {
 		display: none;
 		opacity: 0;
