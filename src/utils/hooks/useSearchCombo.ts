@@ -16,26 +16,25 @@ export default function useSearchCombo({ defaultList, ref }) {
 		setInput(target);
 	};
 
-	const handleReset = () => {
+	const handleReset = async () => {
 		setSearchKeys((_) => {
 			const reset = [''];
 			setInput('');
-			handleSubmit(reset);
 			return [''];
 		});
-
+		await navigate(`/`);
 		ref.current.focus();
 	};
 
 	const handleOnFocusBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-		// console.log('focus', e);
 		const isFocused = e.type === 'focus' ? true : false;
 		setIsFocused((_) => isFocused);
 	};
 
-	const handleSubmit = async (keys?: string[]) => {
+	const handleSubmit = async () => {
+		console.log('handleSubmit');
 		try {
-			const qKeys = keys || searchKeys;
+			const qKeys = searchKeys;
 			await navigate(`/?q=${qKeys.join(' ').trim()}`);
 		} catch (e) {
 			console.error(e);
@@ -43,13 +42,13 @@ export default function useSearchCombo({ defaultList, ref }) {
 	};
 
 	const handleSelect = (listItem: string) => {
+		console.log('handleSelect');
 		setSearchKeys((keys) => {
 			keys[keys.length - 1] = listItem;
 			setInput(() => `${keys.join(' ')} `); // repopulate input with extra space
-			handleSubmit(keys);
 			return keys;
 		});
-
+		// reset dropdowns
 		setDropdown(defaultListBox);
 		if (ref) {
 			ref.current.focus();

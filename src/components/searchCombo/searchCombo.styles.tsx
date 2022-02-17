@@ -5,6 +5,13 @@ export const StyledSearchForm = styled.form`
 	position: relative;
 `;
 
+export const StyledInputContainer = styled.div`
+	display: grid;
+	grid-template-columns: 7fr 1fr;
+	grid-gap: 0.7rem;
+	height: clamp(3rem, 7vh, 3.1rem);
+`;
+
 export const StyledSuggestions = styled.div`
 	position: absolute;
 	width: 100%;

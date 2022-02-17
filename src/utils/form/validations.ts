@@ -1,4 +1,4 @@
-export function textValidation(fieldName: string, fieldValue: string, options?: any) {
+export function textValidation(fieldValue: string, fieldName: string, options?: any) {
 	try {
 		if (!fieldName) {
 			throw new Error('missing fieldName argument');
@@ -27,13 +27,14 @@ export function textValidation(fieldName: string, fieldValue: string, options?: 
 	}
 }
 
-export function emailValidation(required, email) {
+export function emailValidation(email, _, options) {
 	try {
 		if (!email) {
 			throw new Error('missing email argument');
 		}
+		const { required } = options;
 		const emailValue = email.trim();
-		if (required && !emailValue) {
+		if (required && emailValue === '') {
 			return 'An email is required';
 		}
 		if (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailValue)) {
@@ -47,21 +48,25 @@ export function emailValidation(required, email) {
 
 export function passwordValidation(password) {
 	try {
-		if (!password) {
+		if (!password && password !== '') {
 			throw new Error('missing password argument');
+		}
+		if (password === '') {
+			return 'please enter a valid passwrd';
 		}
 		let errorStr = 'valid password needs to have at least ';
 		const errorArr = [];
+		console.log('password', password);
 		if (!/[a-z]/.test(password)) {
 			errorArr.push('one lowercase letter');
 		}
-		if (!/[A-Z]/.test(password)) {
+		if (!/[A-Z]{1}/.test(password)) {
 			errorArr.push('one uppercase letter');
 		}
-		if (!/[0-9]/.test(password)) {
+		if (!/[0-9]{1}/.test(password)) {
 			errorArr.push('one number');
 		}
-		if (!/[\^$*.\[\]{}\(\)?\-“!@#%&/,><\’:;|_~`]/.test(password)) {
+		if (!/[\^$*.\[\]{}\(\)?\-“!@#%&/,><\’:;|_~`]{1}/.test(password)) {
 			errorArr.push('one special character');
 		}
 		if (/[\s]/.test(password)) {

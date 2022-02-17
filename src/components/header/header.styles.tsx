@@ -22,11 +22,19 @@ export const StyledContentTabs = styled.div`
 	position: ${({ isFixed }) => (isFixed ? 'fixed' : 'inherit')};
 
 	@media screen and (min-width: ${mediaSizes.tab}px) {
-		width: ${({ isFixed }) => (isFixed ? '100%' : '60%')};
+		width: ${({ isFixed }) => (isFixed ? '100%' : '80%')};
 		margin: 0 auto;
 		padding-top: var(--x2-spacing);
 		& > * {
-			width: ${({ isFixed }) => (isFixed ? '60%' : '100%')};
+			width: ${({ isFixed }) => (isFixed ? '80%' : '100%')};
+			margin: 0.5rem auto;
+		}
+	}
+	@media screen and (min-width: ${mediaSizes.desk}px) {
+		--width: min(65%, 780px);
+		width: ${({ isFixed }) => (isFixed ? '100%' : 'var(--width)')};
+		& > * {
+			width: ${({ isFixed }) => (isFixed ? 'var(--width)' : '100;')};
 			margin: 0.5rem auto;
 		}
 	}

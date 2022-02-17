@@ -18,7 +18,7 @@ interface ICardActionButton {
 	classStr?: string;
 }
 
-export default function Card({ children, mainlink, mainAction, id, keywords, date, icon, fill }) {
+export default function Card({ children, mainlink, mainAction, id, keywords, date, icon, fill, type }) {
 	const [blockClickable, setblockClickable] = useState(true);
 	const cardRef = useRef(null);
 
@@ -49,7 +49,7 @@ export default function Card({ children, mainlink, mainAction, id, keywords, dat
 	};
 
 	const updatedWithProps = React.Children.map(children, (child, index) => {
-		if (child.type.name === 'CardActionButton') {
+		if (child?.type && child?.type?.name === 'CardActionButton') {
 			return React.cloneElement(child, {
 				handleClick: handleSecondaryClick,
 				classStr: 'action-button',
@@ -69,11 +69,13 @@ export default function Card({ children, mainlink, mainAction, id, keywords, dat
 			<StyledIconContainer fill={fill}>
 				<Icon />
 			</StyledIconContainer>
-			<StyledDateContainer>
-				<time dateTime={date}>{date}</time>
-			</StyledDateContainer>
+			{date && (
+				<StyledDateContainer>
+					<time dateTime={date}>{date}</time>
+				</StyledDateContainer>
+			)}
 			{updatedWithProps}
-			<Tag tags={keywords} />
+			{keywords && <Tag tags={keywords} />}
 		</StyledCard>
 	);
 }

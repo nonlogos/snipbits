@@ -1,40 +1,49 @@
+import { useRef, useEffect } from 'react';
 import * as JsSearch from 'js-search';
 
-export default function useJsSearch(options, data) {
-	const { SearchIndex, Indexes } = options;
+interface IData {
+	[key: string]: any;
+}
 
-	try {
-		if (!SearchIndex || !Indexes || Indexes.length < 1) {
-			throw new Error('missing SearchIndex or an array of indexes');
-		}
+export default function useJsSearch(options, data?: IData[]) {
+	const { SearchIndex, Indexes } = options;
+	const searchInstance = useRef<JsSearch.Search | null>(null);
+
+	if (!SearchIndex || !Indexes || Indexes.length < 1) {
+		throw new Error('missing SearchIndex or an array of indexes');
+	}
+	// for dynamic data that needs to be loaded on runtime
+	const addData = (data) => {
+		searchInstance.current.addDocuments(data);
+	};
+
+	const search = (query: string) => {
+		return searchInstance.current.search(query);
+	};
+
+	useEffect(() => {
 		// Search configuration
-		const dataToSearch = new JsSearch.Search(SearchIndex);
+		// using ref to maintain the class instance throughout the component lifetime
+		searchInstance.current = new JsSearch.Search(SearchIndex);
 		/**
 		 * defines an indexing strategy for the data
 		 * more about it in here https://github.com/bvaughn/js-search#configuring-the-index-strategy
 		 */
-		dataToSearch.indexStrategy = new JsSearch.PrefixIndexStrategy();
+		searchInstance.current.indexStrategy = new JsSearch.PrefixIndexStrategy();
 
-		dataToSearch.tokenizer = new JsSearch.StopWordsTokenizer(new JsSearch.SimpleTokenizer());
+		searchInstance.current.tokenizer = new JsSearch.StopWordsTokenizer(new JsSearch.SimpleTokenizer());
 
 		/**
 		 * defines the search index
 		 * read more in here https://github.com/bvaughn/js-search#configuring-the-search-index
 		 */
-		dataToSearch.searchIndex = new JsSearch.TfIdfSearchIndex(SearchIndex);
+		searchInstance.current.searchIndex = new JsSearch.TfIdfSearchIndex(SearchIndex);
 		// fields to search
 		Indexes.forEach((index) => {
-			dataToSearch.addIndex(index);
+			searchInstance.current.addIndex(index);
 		});
+		data && searchInstance.current.addDocuments(data);
+	}, []);
 
-		dataToSearch.addDocuments(data);
-
-		const search = (query: string) => {
-			return dataToSearch.search(query);
-		};
-
-		return { search };
-	} catch (e) {
-		console.error(e);
-	}
+	return { search, addData };
 }

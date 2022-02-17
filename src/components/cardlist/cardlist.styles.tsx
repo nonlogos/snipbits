@@ -10,7 +10,6 @@ export const StyledUl = styled.ul`
 	-webkit-overflow-scrolling: touch;
 	& > li {
 		padding-left: 0;
-
 		&:not(:first-child) {
 			border-top: 1px solid var(--text-2-light);
 		}

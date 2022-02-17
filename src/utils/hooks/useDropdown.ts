@@ -28,7 +28,7 @@ const defaultListBox = {
 export default function useDropdown({ list = [], defaultShow = false, onSelect = null }: IuseDropdown) {
 	const [showDropdown, setShowDropdown] = useState(defaultShow);
 	const [dropdownList, setDropdownList] = useState(list);
-	const [focusIndex, setFocusIndex] = useState(0); // controls the index of the list item to be focused
+	const [focusIndex, setFocusIndex] = useState(null); // controls the index of the list item to be focused
 	const [handleSelect, setHandleSelect] = useState(onSelect);
 	// *[TODO] need to refactor for dry
 
@@ -57,9 +57,12 @@ export default function useDropdown({ list = [], defaultShow = false, onSelect =
 					}
 					break;
 				case ENTER:
+					e.preventDefault();
 					handleSelect(dropdownList[focusIndex]);
 					setFocusIndex(0);
 					break;
+				// case Escape:
+
 				default:
 					break;
 			}

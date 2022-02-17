@@ -17,10 +17,10 @@ const defaultMenuStates = {
 };
 
 export default function DefaultLayout({ children, location }) {
-	const [themeMode, setThemeMode, themeModeList] = useThemeMode();
+	const { currentTheme, setThemeMode, themeModes } = useThemeMode();
 	const [currentIndex, setCurrentIndex] = useState(1);
 
-	console.log('location', location);
+	// console.log('location', location);
 
 	// check if this is a mobile device browser
 	const isMobile = hasTouchScreen();
@@ -35,13 +35,13 @@ export default function DefaultLayout({ children, location }) {
 	};
 	// [TODO] consider using context for nav
 	return (
-		<ThemeProvider theme={{ mode: themeMode }}>
-			<GlobalStyles mode={themeMode} />
+		<ThemeProvider theme={{ mode: currentTheme }}>
+			<GlobalStyles mode={currentTheme} />
 			{isMobile ? (
 				<NavMobile
 					defaultMenuStates={defaultMenuStates}
-					themeModeList={themeModeList}
-					themeMode={themeMode}
+					themeModeList={themeModes}
+					themeMode={currentTheme}
 					setThemeMode={setThemeMode}
 					contentTypes={contentTypes}
 					handleTabChange={handleTabChange}

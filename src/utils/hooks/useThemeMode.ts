@@ -1,20 +1,17 @@
+import { Lightbulb } from '@styled-icons/remix-line';
 import { useState, useLayoutEffect } from 'react';
 
-const themeModeList = {
-	light: 'light',
-	dim: 'dim',
-	dark: 'dark',
-};
+import { themeModes as themeList, LIGHT_THEME, DARK_THEME } from '../constants';
 
-export default function useThemeMode() {
-	const [themeMode, setThemeMode] = useState('');
+export default function useThemeMode(themeModes = themeList) {
+	const [currentTheme, setThemeMode] = useState('');
 
 	const handleEventListener = (e) => {
 		console.log('e', e);
 		if (e.matches) {
-			setThemeMode(themeModeList.dark);
+			setThemeMode(DARK_THEME);
 		} else {
-			setThemeMode(themeModeList.light);
+			setThemeMode(LIGHT_THEME);
 		}
 	};
 
@@ -43,5 +40,5 @@ export default function useThemeMode() {
 		return () => darkMediaQuery.removeEventListener('change', handleEventListener);
 	}, []);
 
-	return [themeMode, setThemeMode, themeModeList];
+	return { currentTheme, setThemeMode, themeModes };
 }

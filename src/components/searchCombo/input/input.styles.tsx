@@ -6,6 +6,7 @@ export const StyledInputContainer = styled.div`
 
 export const StyledInput = styled.input`
 	width: 100%;
+	height: 100%;
 	padding-left: var(--x8-spacing);
 	&::-webkit-search-cancel-button {
 		display: none;
@@ -22,7 +23,7 @@ export const StyledSearchIcon = styled.div`
 	height: 100%;
 `;
 
-export const StyledCloseButton = styled.button`
+export const StyledClearButton = styled.button`
 	position: absolute;
 	right: var(--x2-spacing);
 	/* display: flex;

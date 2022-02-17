@@ -3,22 +3,25 @@ import { useState } from 'react';
 import { userFormSchema } from '../form/schema';
 import { setDefaultFormValues } from '../form/helpers';
 
+interface IFormValues {
+	[key: string]: string;
+}
+
 export default function useForm() {
-	const [formValues, setFormValues] = useState(setDefaultFormValues(userFormSchema));
+	const [formValues, setFormValues] = useState<IFormValues>(setDefaultFormValues(userFormSchema));
 	const [errors, setErrors] = useState({});
 
-	const handleOnBlur = (e, ref) => {
-		const fieldName = e.target.name;
+	const validateField = (fieldName, ref) => {
 		const fieldSchema = userFormSchema.filter((field) => field.name === fieldName);
-		console.log('field', fieldSchema);
 		if (fieldSchema.length) {
 			const {
 				validation: { validate, options },
 			} = fieldSchema[0];
-			const error = validate(fieldName, formValues[fieldName], options);
+			console.log('formValues', formValues, fieldName);
+			const error = validate(formValues[fieldName], fieldName, options);
 			if (error) {
 				setErrors((errors) => ({ ...errors, [fieldName]: error }));
-				ref.current.focus();
+				ref && ref.current.focus();
 			} else {
 				const updateErrors = { ...errors };
 				delete updateErrors[fieldName];
@@ -27,5 +30,5 @@ export default function useForm() {
 		}
 	};
 
-	return { formValues, errors, setFormValues, handleOnBlur, userFormSchema };
+	return { formValues, errors, setFormValues, validateField, userFormSchema };
 }

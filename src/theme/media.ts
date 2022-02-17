@@ -4,7 +4,7 @@ export const mediaSizes = {
 	// Default styles written mobile-first assuming 320px width
 	mbl: 360,
 	tab: 599,
-	desk: 1239,
+	desk: 1100,
 };
 
 // [TODO]: switch styles to only use min-width

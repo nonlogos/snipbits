@@ -1,5 +1,6 @@
 import { textValidation, passwordValidation } from './validations';
 
+//**[TODO] need to add unmask icon to password */
 export const userFormSchema = [
 	{
 		name: 'username',
@@ -16,7 +17,7 @@ export const userFormSchema = [
 	{
 		name: 'password',
 		autoComplete: 'password',
-		type: 'text',
+		type: 'password',
 		placeholder: 'Enter your password',
 		isRequired: true,
 		isInvalid: false,

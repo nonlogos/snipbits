@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { navigate } from 'gatsby';
 import styled from 'styled-components';
 
 import Form from '../components/form/Form';
+import Button from '../components/Button';
 import useForm from '../utils/hooks/useForm';
+import useAuth from '../utils/hooks/useAuth';
 import { mediaSizes } from '../theme/media';
 
 const StyledMainContainer = styled.main`
 	margin: var(--x10-spacing) var(--x4-spacing);
 	@media screen and (min-width: ${mediaSizes.tab}px) {
-		width: 60%;
+		max-width: 60%;
 		margin: var(--x10-spacing) auto;
 		min-height: 40rem;
 	}
@@ -17,71 +20,78 @@ const StyledMainContainer = styled.main`
 	}
 `;
 
-const StyledButton = styled.button`
-	--primary-color: var(--primary);
-	--cancel-color: var(--text-2);
-	--hover-text: var(--surface-1);
-	border: 1px solid var(--primary-color);
-	border-radius: var(--border-radius);
-	color: var(--primary-color);
-	margin-right: 0.5em;
-	padding: 0.3em;
-	min-width: 30%;
-	text-align: center;
-	background-color: inherit;
-	will-change: background-color, color;
-	transition: background-color var(--transition), color var(--transition);
-	&:hover {
-		background-color: var(--primary-color);
-		color: var(--hover-text);
-	}
-	&.cancel {
-		border-color: var(--cancel-color);
-		color: var(--cancel-color);
-		&:hover {
-			background-color: var(--cancel-color);
-			color: var(--hover-text);
-		}
-	}
-`;
-
 export default function Login() {
-	const { formValues, errors, setFormValues, handleOnBlur, userFormSchema } = useForm();
+	const { formValues, errors, setFormValues, validateField, userFormSchema } = useForm();
+	const { signIn } = useAuth();
+	const [isLoading, setIsLoading] = useState(false);
+	const [signInError, setSignInError] = useState(null);
 
 	const handleOnChange = (e) => {
 		const { name, value } = e.target;
 		setFormValues((values) => ({ ...values, [name]: value }));
 	};
 
-	const handleOnSubmit = (e) => {
-		e.preventDefault();
+	const handleCancel = () => {
+		// go back to previous page
+		navigate(-1);
 	};
 
-	console.log('formValues', formValues);
-	console.log('errors', errors);
+	const handleOnSubmit = async (e) => {
+		e.preventDefault();
+		for (let key in formValues) {
+			validateField(formValues[key], key);
+		}
+		if (Object.keys(errors).length < 1) {
+			setIsLoading((_) => true);
+			const { username, password } = formValues;
+			const user = await signIn(username, password);
+			console.log('user', user.message, typeof user.message);
+			// handle login error
+			if (user && user.signInError) {
+				setSignInError(user.signInError);
+			}
+			setIsLoading((_) => false);
+			// go back to previous page
+			navigate(-1);
+		}
+	};
+
 	return (
 		<StyledMainContainer>
-			<h1>Login</h1>
-			<Form handleOnSubmit={handleOnSubmit}>
-				{userFormSchema.map((f) => (
-					<Form.field
-						key={f.name}
-						name={f.name}
-						autoComplete={f.autoComplete}
-						type={f.type}
-						value={formValues[f.name]}
-						placeholder={f.placeholder}
-						isRequired={f.isRequired}
-						handleBlur={handleOnBlur}
-						handleOnChange={handleOnChange}
-						error={errors[f.name]}
-					/>
-				))}
-				<StyledButton type="submit">Login</StyledButton>
-				<StyledButton type="button" className="cancel">
-					Cancel
-				</StyledButton>
-			</Form>
+			<h1>Sign in</h1>
+			{isLoading ? (
+				<p>Please wait while we sign you in...</p>
+			) : (
+				<>
+					{signInError && <p>{signInError}</p>}
+					<Form handleOnSubmit={handleOnSubmit}>
+						{userFormSchema.map((f) => (
+							<Form.field
+								key={f.name}
+								name={f.name}
+								autoComplete={f.autoComplete}
+								type={f.type}
+								value={formValues[f.name]}
+								placeholder={f.placeholder}
+								isRequired={f.isRequired}
+								validate={validateField}
+								handleOnChange={handleOnChange}
+								error={errors[f.name]}
+							/>
+						))}
+						<Button
+							type="submit"
+							className={Object.keys(errors).length > 0 ? 'alert' : ''}
+							disabled={Object.keys(errors).length > 0}
+						>
+							Login
+						</Button>
+						<Button type="button" className="cancel" onClick={handleCancel}>
+							Cancel
+						</Button>
+					</Form>
+				</>
+			)}
 		</StyledMainContainer>
 	);
 }

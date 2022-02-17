@@ -1,5 +1,4 @@
 const path = require('path');
-const axios = require('axios');
 const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
 // Create new pages for all mdx files using the post-template template
@@ -67,7 +66,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 			}
 			snippets: allMdx(
 				sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
-				filter: { fields: { contentType: { eq: "snippets" } } }
+				filter: { fields: { contentType: { eq: "snippet" } } }
 			) {
 				nodes {
 					id
@@ -88,23 +87,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 		}
 	`);
 
-	const indexBookmarksResult = await axios.get('https://bvaughn.github.io/js-search/books.json');
-
-	if (indexPostsResult.errors || !indexBookmarksResult.data) {
+	if (indexPostsResult.errors) {
 		reporter.panicOnBuild('ERROR: loading createPages query');
 	}
-	const bookmarks = indexBookmarksResult.data.books;
-	// const allContents = { ...indexPostsResult.data, bookmarks };
 
 	createPage({
 		path: '/',
 		component: path.resolve(`./src/templates/searchResults/SearchResultsTemplate.tsx`),
 		context: {
 			bookmarkData: {
-				allBookmarks: bookmarks,
 				options: {
-					SearchIndex: 'isbn',
-					Indexes: ['title', 'author', 'isbn'],
+					SearchIndex: 'id',
+					Indexes: ['title', 'description', 'pageUrl', 'id'],
 				},
 			},
 			postsData: {

@@ -110,8 +110,11 @@ const GlobalStyles = createGlobalStyle`
     }
 
     button {
-      font-weight: 500;
+      font-weight: 300;
       cursor: pointer;
+      &:hover:not(.active) {
+        font-weight: 500;
+      }
     }
 
     em, strong {

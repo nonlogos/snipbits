@@ -42,7 +42,6 @@ export const StyledCard = styled.article`
 		h2 {
 			font-size: 1.7rem;
 			font-variation-settings: 'WONK' 0, 'SOFT' 100, 'opsz' 50, 'wght' 400;
-			text-align: center;
 		}
 	}
 `;

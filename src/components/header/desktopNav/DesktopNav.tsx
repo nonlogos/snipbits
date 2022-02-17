@@ -2,35 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { Sun as SunIcon, LoginCircle as LoginIcon } from '@styled-icons/remix-line';
 
-export const StyledMenu = styled.menu`
-	--spacing: var(--x3-spacing);
-	position: absolute;
-	top: var(--spacing);
-	right: 10%;
-	display: flex;
-	gap: var(--spacing);
-
-	button {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		font-size: 0.7em;
-		cursor: pointer;
-		will-change: color;
-		transition: color var(--transition);
-
-		&:hover {
-			color: var(--surface-1);
-		}
-
-		svg {
-			width: var(--spacing);
-			height: var(--spacing);
-		}
-	}
-`;
+import useDropdown from '../../../utils/hooks/useDropdown';
+import useThemeMode from '../../../utils/hooks/useThemeMode';
+import DropdownMenu from '../dropdownMenu/DropdownMenu';
+import { StyledMenu } from './desktopNav.styles';
 
 export default function DesktopNav() {
+	const { currentTheme, setThemeMode, themeModes } = useThemeMode();
+	const { showDropdown, dropdownList, focusIndex, setDropdown, setHandleSelect, handleOnKeyDown } = useDropdown({
+		list: themeModes,
+		onSelect: setThemeMode,
+	});
+
 	return (
 		<StyledMenu>
 			<li>
@@ -38,6 +21,19 @@ export default function DesktopNav() {
 					<SunIcon />
 					Theme
 				</button>
+				<DropdownMenu title="Select your preferred theme mode">
+					{themeModes.map((theme) => {
+						const Icon = theme.icon;
+						return (
+							<DropdownMenu.item>
+								<button>
+									<Icon />
+									{theme.mode}
+								</button>
+							</DropdownMenu.item>
+						);
+					})}
+				</DropdownMenu>
 			</li>
 			<li>
 				<button>

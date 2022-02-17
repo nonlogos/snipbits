@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
-import { Search2 as SearchIcon, Close as CloseIcon } from '@styled-icons/remix-line';
+import { Search2 as SearchIcon, Close as ClearIcon } from '@styled-icons/remix-line';
 
-import { StyledInputContainer, StyledInput, StyledSearchIcon, StyledCloseButton } from './input.styles';
+import { StyledInputContainer, StyledInput, StyledSearchIcon, StyledClearButton } from './input.styles';
 
 type props = {
 	id: string;
@@ -15,7 +15,7 @@ type props = {
 
 const Input = forwardRef<HTMLInputElement, props>(
 	({ id, isExpanded, handleOnChange, handleOnFocusBlur, handleOnKeyDown, handleReset, value }, ref) => {
-		const handleCloseKeyPress = (e) => {
+		const handleClear = (e) => {
 			e.preventDefault();
 			handleReset();
 		};
@@ -41,9 +41,9 @@ const Input = forwardRef<HTMLInputElement, props>(
 					value={value}
 					ref={ref}
 				/>
-				<StyledCloseButton type="button" onClick={handleCloseKeyPress} onKeyPress={handleCloseKeyPress}>
-					<CloseIcon />
-				</StyledCloseButton>
+				<StyledClearButton type="button" onClick={handleClear} onKeyPress={handleClear}>
+					<ClearIcon />
+				</StyledClearButton>
 			</StyledInputContainer>
 		);
 	}

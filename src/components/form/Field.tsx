@@ -29,7 +29,7 @@ export default function Field({
 	type,
 	value,
 	handleOnChange,
-	handleBlur,
+	validate,
 	placeholder,
 	isRequired,
 	className,
@@ -37,7 +37,8 @@ export default function Field({
 }) {
 	const inputRef = useRef(null);
 	const handleOnBlur = (e) => {
-		handleBlur(e, inputRef);
+		const fieldName = e.target.name;
+		validate(fieldName, inputRef);
 	};
 	return (
 		<StyledFieldContainer>

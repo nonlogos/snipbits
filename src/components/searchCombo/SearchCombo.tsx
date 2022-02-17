@@ -3,8 +3,9 @@ import React, { useRef, useContext } from 'react';
 import { TagsContext } from '../../utils/contexts';
 import Input from './input/Input';
 import Option from './option/Option';
+import Button from '../Button';
 import useSearchCombo from '../../utils/hooks/useSearchCombo';
-import { StyledSearchForm, StyledSuggestions } from './searchCombo.styles';
+import { StyledSearchForm, StyledSuggestions, StyledInputContainer } from './searchCombo.styles';
 
 function mapTags(tags) {
 	return tags.map((tagObj) => tagObj.tag);
@@ -48,17 +49,21 @@ export function Search() {
 				<div>
 					{/* [TODO] need to add dynamic hinting here */}
 					<div className="suggestions-help" role="status" aria-live="polite"></div>
-
-					<Input
-						id="search"
-						isExpanded={showDropdown}
-						handleOnChange={handleInputChange}
-						handleOnFocusBlur={handleOnFocusBlur}
-						handleOnKeyDown={handleOnKeyDown}
-						handleReset={handleReset}
-						value={input}
-						ref={inputRef}
-					/>
+					<StyledInputContainer>
+						<Input
+							id="search"
+							isExpanded={showDropdown}
+							handleOnChange={handleInputChange}
+							handleOnFocusBlur={handleOnFocusBlur}
+							handleOnKeyDown={handleOnKeyDown}
+							handleReset={handleReset}
+							value={input}
+							ref={inputRef}
+						/>
+						<Button action={handleSubmit} disabled={!input.length}>
+							Search
+						</Button>
+					</StyledInputContainer>
 					<StyledSuggestions className={showDropdown === false && 'hidden'}>
 						<ul
 							tabIndex={0}
